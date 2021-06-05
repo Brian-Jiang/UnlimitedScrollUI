@@ -1,0 +1,140 @@
+Using pre-set license
+Built from '2021.1/china_unity/release' branch; Version is '2021.1.7f1c1 (4e944ebb9621) revision 5149774'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Home; OS build 19043.1023; Version 2009; 64bit' Language: 'zh' Physical Memory: 16305 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+D:\UnityHub\Editors\2021.1.7f1c1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+D:/UnityProjects/UnlimitedScrollUI
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+59027
+Successfully changed project path to: D:/UnityProjects/UnlimitedScrollUI
+D:/UnityProjects/UnlimitedScrollUI
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 27.02 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.1.7f1c1 (4e944ebb9621)
+[Subsystems] Discovering subsystems at path D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/UnityProjects/UnlimitedScrollUI/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3080 (ID=0x2206)
+    Vendor:   NVIDIA
+    VRAM:     10078 MB
+    Driver:   27.21.14.6663
+Initialize mono
+Mono path[0] = 'D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/Managed'
+Mono path[1] = 'D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56980
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.000874 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 27.68 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.808 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.000997 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 30.42 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.704 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.29 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1725 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 86.4 MB.
+System memory in use after: 86.5 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2194.
+Total: 1.886100 ms (FindLiveObjects: 0.162100 ms CreateObjectMapping: 0.074700 ms MarkObjects: 1.592500 ms  DeleteObjects: 0.055800 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Easter_UI/blue_buttons
+  artifactKey: Guid(32cfdaff84f8b9a4bb8ca43cc651ab5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/blue_buttons using Guid(32cfdaff84f8b9a4bb8ca43cc651ab5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61534f9a1985f083f39e961ad360b3fe') in 0.006382 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 8.478707 seconds.
+  path: Assets/Easter_UI/Buttons
+  artifactKey: Guid(7601130fa52e64a409d2fc5441cc4117) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/Buttons using Guid(7601130fa52e64a409d2fc5441cc4117) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e105b4d19b5be392837ff889412eaab') in 0.005404 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 16.403005 seconds.
+  path: Assets/Easter_UI/particles/Button_loading.png
+  artifactKey: Guid(3d47752efff855740b48e07f21cb033b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/particles/Button_loading.png using Guid(3d47752efff855740b48e07f21cb033b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c34af50707d5963a0b82ac724dcbce5') in 0.113235 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.838863 seconds.
+  path: Assets/Easter_UI/particles/Button_loading_02.png
+  artifactKey: Guid(5f7427dfe7637364db4d5518458e6a7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/particles/Button_loading_02.png using Guid(5f7427dfe7637364db4d5518458e6a7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a57c3f52c87b7350e746670c6aa1aad9') in 0.019530 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.833182 seconds.
+  path: Assets/Easter_UI/particles/Button_loading_line.png
+  artifactKey: Guid(4685e4470157adb4c8e6302be1363d7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/particles/Button_loading_line.png using Guid(4685e4470157adb4c8e6302be1363d7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07eaa1859f962b275fde29cd1e9db418') in 0.019200 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.743406 seconds.
+  path: Assets/Easter_UI/particles/Button_loading_line_02.png
+  artifactKey: Guid(2c78a9de5df475440a27ad066a8ebabf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/particles/Button_loading_line_02.png using Guid(2c78a9de5df475440a27ad066a8ebabf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ea9c63529d93e0ad7e0e2d759ed9458') in 0.010682 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 16.877863 seconds.
+  path: Assets/Easter_UI/Buttons/Button_01_medium.png
+  artifactKey: Guid(43615191a33bf4044862d26552807592) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/Buttons/Button_01_medium.png using Guid(43615191a33bf4044862d26552807592) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83cdf645114e48bd6342f26179e7bb19') in 0.013337 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.545723 seconds.
+  path: Assets/Easter_UI/Buttons/Button_02.png
+  artifactKey: Guid(3951cf65c072b514dac43f22a5aedf0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/Buttons/Button_02.png using Guid(3951cf65c072b514dac43f22a5aedf0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b302a6d5e359d2716c70641472cc52fc') in 0.030594 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.053841 seconds.
+  path: Assets/Easter_UI/Buttons/Button_pink.png
+  artifactKey: Guid(d6e00ab413ff3024daa8d0dfb85d1b4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/Buttons/Button_pink.png using Guid(d6e00ab413ff3024daa8d0dfb85d1b4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d35ec5feef368c2694673a108039dc8') in 0.015258 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.454748 seconds.
+  path: Assets/Easter_UI/Buttons/Button_start_03.png
+  artifactKey: Guid(fc281b5c26474fe4d92c0cbb400dc54c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/Buttons/Button_start_03.png using Guid(fc281b5c26474fe4d92c0cbb400dc54c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75c599d1ce5a5e1d338f10c3edd3cb32') in 0.020210 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.662903 seconds.
+  path: Assets/Easter_UI/Buttons/Button_play_03.png
+  artifactKey: Guid(b994bd4e87e5200438a3ce60f1f55ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Easter_UI/Buttons/Button_play_03.png using Guid(b994bd4e87e5200438a3ce60f1f55ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '791dd1930e73c82cfdfe3680b9424aed') in 0.026553 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 10.192543 seconds.
+  path: Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab
+  artifactKey: Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab using Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca42058772edfa054d658337ca6e18cd') in 0.056227 seconds 

@@ -123,8 +123,7 @@ public class UnlimitedScroller : MonoBehaviour {
         storedElement = newElement;
         totalCount = newTotalCount;
         InitParams();
-
-
+        
         currentFirstCol = FirstCol;
         currentLastCol = LastCol;
         currentFirstRow = FirstRow;
@@ -250,6 +249,7 @@ public class UnlimitedScroller : MonoBehaviour {
         var lastCol = currentLastCol;
 
         var indexEnd = GetCellIndex(row, lastCol);
+        indexEnd = indexEnd >= totalCount ? totalCount - 1 : indexEnd;
         for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
             GenerateCell(i);
         }
@@ -267,6 +267,7 @@ public class UnlimitedScroller : MonoBehaviour {
 
         for (var i = firstRow; i <= lastRow; i++) {
             var index = GetCellIndex(i, col);
+            if(index >= totalCount) continue;
             GenerateCell(index);
         }
 
@@ -282,6 +283,7 @@ public class UnlimitedScroller : MonoBehaviour {
         var lastCol = currentLastCol;
 
         var indexEnd = GetCellIndex(row, lastCol);
+        indexEnd = indexEnd >= totalCount ? totalCount - 1 : indexEnd;
         for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
             DestroyCell(i);
         }
@@ -300,6 +302,7 @@ public class UnlimitedScroller : MonoBehaviour {
         for (var i = firstRow; i <= lastRow; i++) {
             // print($"row: {i}, col: {col}");
             var index = GetCellIndex(i, col);
+            if(index >= totalCount) continue;
             DestroyCell(index);
         }
 
