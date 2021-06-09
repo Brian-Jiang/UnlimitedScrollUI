@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ContainerTest : MonoBehaviour {
-    public GameObject element;
+    public GameObject cell;
     public int totalCount = 33;
     
-    private UnlimitedScroller container;
+    private UnlimitedScroller unlimitedScroller;
 
     private void Start() {
-        container = GetComponent<UnlimitedScroller>();
-        container.Generate(element, totalCount);
+        unlimitedScroller = GetComponent<UnlimitedScroller>();
+        unlimitedScroller.Generate(cell, totalCount);
     }
 }
