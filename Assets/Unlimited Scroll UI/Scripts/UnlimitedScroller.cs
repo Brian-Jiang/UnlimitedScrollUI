@@ -18,7 +18,7 @@ internal struct Padding {
 
 [RequireComponent(typeof(ScrollRect))]
 public class UnlimitedScroller : MonoBehaviour {
-    public bool HasElements { get; private set; } = false;
+    // public bool HasElements { get; private set; } = false;
 
     public int RowCount =>
         totalCount % CellPerRow == 0
@@ -132,22 +132,6 @@ public class UnlimitedScroller : MonoBehaviour {
         InitParams();
         
         GenerateAllCells();
-        
-        // currentFirstCol = FirstCol;
-        // currentLastCol = LastCol;
-        // currentFirstRow = FirstRow;
-        // currentLastRow = LastRow;
-        //
-        // print(CellPerRow);
-        // print($"first col: {currentFirstCol}, last col: {currentLastCol}");
-        // print($"first row: {currentFirstRow}, last row: {currentLastRow}");
-        // layoutGroup.padding.right = (int) ((CellPerRow - LastCol - 1) * cellX);
-        // layoutGroup.padding.bottom = (int) ((RowCount - LastRow - 1) * cellY);
-        // for (var r = currentFirstRow; r <= currentLastRow; ++r) {
-        //     for (var c = currentFirstCol; c <= currentLastCol; ++c) {
-        //         GenerateCell(GetCellIndex(r, c));
-        //     }
-        // }
     }
 
     private void InitParams() {
@@ -180,9 +164,6 @@ public class UnlimitedScroller : MonoBehaviour {
         }
 
         currentElements = new List<Cell>();
-        // var row = totalCount % CellPerRow == 0
-        //     ? totalCount / CellPerRow
-        //     : totalCount / CellPerRow + 1;
         offsetPadding = new Padding() {
             top = layoutGroup.padding.top,
             bottom = layoutGroup.padding.bottom, 
@@ -190,10 +171,9 @@ public class UnlimitedScroller : MonoBehaviour {
             right = layoutGroup.padding.right
         };
         ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
-        print($"cellY: {cellY}, total: {totalCount}, ele/row: {CellPerRow}");
+        // print($"cellY: {cellY}, total: {totalCount}, ele/row: {CellPerRow}");
         ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
         
-        // viewportVisibleCount = (int)(ViewportHeight / cellY + extraRowCount + 1) * cellPerRow;
         // emptyRows = 0;
     }
 
@@ -252,7 +232,7 @@ public class UnlimitedScroller : MonoBehaviour {
         // print(CellPerRow);
         // print($"first col: {currentFirstCol}, last col: {currentLastCol}");
         // print($"first row: {currentFirstRow}, last row: {currentLastRow}");
-        print(offsetPadding.left);
+        // print(offsetPadding.left);
         
         // TODO child force expand
         layoutGroup.padding.left = offsetPadding.left + (currentFirstCol == 0 ? 0 : (int) (currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
