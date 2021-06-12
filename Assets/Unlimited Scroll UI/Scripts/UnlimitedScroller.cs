@@ -104,9 +104,6 @@ public class UnlimitedScroller : MonoBehaviour {
 
     private GameObject storedElement;
 
-
-    // private int viewportVisibleCount;
-
     private float cellX;
     private float cellY;
     private float spacingX;
@@ -232,13 +229,11 @@ public class UnlimitedScroller : MonoBehaviour {
         // print(CellPerRow);
         // print($"first col: {currentFirstCol}, last col: {currentLastCol}");
         // print($"first row: {currentFirstRow}, last row: {currentLastRow}");
-        // print(offsetPadding.left);
         
-        // TODO child force expand
         layoutGroup.padding.left = offsetPadding.left + (currentFirstCol == 0 ? 0 : (int) (currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
-        layoutGroup.padding.right = offsetPadding.right + (currentLastCol == CellPerRow - 1 ? 0 : (int) ((CellPerRow - LastCol - 1) * cellX + (CellPerRow - LastCol - 2) * spacingX));
+        layoutGroup.padding.right = offsetPadding.right + (int) ((CellPerRow - LastCol - 1) * (cellX + spacingX));
         layoutGroup.padding.top = offsetPadding.top + (currentFirstRow == 0 ? 0 : (int) (currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
-        layoutGroup.padding.bottom = offsetPadding.bottom + ((int) ((RowCount - LastRow - 1) * cellY + (RowCount - LastRow - 2) * spacingY));
+        layoutGroup.padding.bottom = offsetPadding.bottom + (int) ((RowCount - LastRow - 1) * (cellY + spacingY));
         for (var r = currentFirstRow; r <= currentLastRow; ++r) {
             for (var c = currentFirstCol; c <= currentLastCol; ++c) {
                 var index = GetCellIndex(r, c);

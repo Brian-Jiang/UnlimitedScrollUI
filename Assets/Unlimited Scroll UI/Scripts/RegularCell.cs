@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public enum AnimationType {
     None, Fade, Scale, FadeAndScale
 }
+
+[Serializable]
+public class GenerateEvent: UnityEvent<int> {}
 
 [RequireComponent(typeof(CanvasGroup))]
 public class RegularCell : MonoBehaviour, ICell {
@@ -17,7 +18,7 @@ public class RegularCell : MonoBehaviour, ICell {
     [Range(0f, 1f)] public float fadeFrom;
     [Range(0f, 1f)] public float scaleFrom;
 
-    public UnityEvent<int> onGenerated;
+    public GenerateEvent onGenerated;
     
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
