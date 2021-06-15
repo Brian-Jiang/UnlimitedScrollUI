@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2021.1/china_unity/release' branch; Version is '2021.1.7f1c1 (4e944ebb9621) revision 5149774'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Home; OS build 19043.1052; Version 2009; 64bit' Language: 'zh' Physical Memory: 16305 MB
+OS: 'Windows 10 Home; OS build 19043.1055; Version 2009; 64bit' Language: 'zh' Physical Memory: 16305 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ D:/UnityProjects/UnlimitedScrollUI
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-49384
+49572
 Successfully changed project path to: D:/UnityProjects/UnlimitedScrollUI
 D:/UnityProjects/UnlimitedScrollUI
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 23.85 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 23.29 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.1.7f1c1 (4e944ebb9621)
 [Subsystems] Discovering subsystems at path D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/Resources/UnitySubsystems
@@ -35,296 +35,41 @@ Initialize mono
 Mono path[0] = 'D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/Managed'
 Mono path[1] = 'D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56932
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56588
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/UnityHub/Editors/2021.1.7f1c1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.000875 seconds.
+Registered in 0.000873 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 24.09 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 23.80 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.964 seconds
+- Completed reload, in  0.755 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.000934 seconds.
+Registered in 0.000885 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 23.72 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 23.31 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.695 seconds
+- Completed reload, in  0.673 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 0.23 ms, found 1 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.24 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1570 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1569 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 77.0 MB.
 System memory in use after: 77.1 MB.
 
-Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2039.
-Total: 1.495900 ms (FindLiveObjects: 0.132500 ms CreateObjectMapping: 0.045000 ms MarkObjects: 1.276400 ms  DeleteObjects: 0.041300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001091 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.25 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.676 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.25 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1561 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 76.6 MB.
-System memory in use after: 76.7 MB.
-
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 2042.
-Total: 1.462300 ms (FindLiveObjects: 0.152100 ms CreateObjectMapping: 0.058600 ms MarkObjects: 1.236000 ms  DeleteObjects: 0.014800 ms)
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2038.
+Total: 2.341200 ms (FindLiveObjects: 0.155800 ms CreateObjectMapping: 0.051900 ms MarkObjects: 2.072000 ms  DeleteObjects: 0.060400 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Test.unity
-  artifactKey: Guid(a4f9c15c6a704084a9bc37a5835b745f) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Test.unity using Guid(a4f9c15c6a704084a9bc37a5835b745f) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '2fca5b38542b70e7e2dce7ed48a4702f') in 0.055497 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000200 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scripts/Popup.cs
-  artifactKey: Guid(38eb1967a32b3b14a9fdd93ebec2a44c) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Examples/Scripts/Popup.cs using Guid(38eb1967a32b3b14a9fdd93ebec2a44c) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '054cf35a1a51020e16451213e50ef174') in 0.016283 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000139 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/ICell.cs
-  artifactKey: Guid(d895363838619fc4ca8c0987d8ac46ae) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Scripts/ICell.cs using Guid(d895363838619fc4ca8c0987d8ac46ae) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: 'b11f77249cdfc030432f2f2e539cf178') in 0.007032 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000129 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/RegularCell.cs
-  artifactKey: Guid(de3c7061077920d49a267e41fa111ec6) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Scripts/RegularCell.cs using Guid(de3c7061077920d49a267e41fa111ec6) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '47efbb2b13d650135add679acc067ac6') in 0.006915 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000162 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/UnlimitedScroller.cs
-  artifactKey: Guid(c65fe2561537af94194d02d99bc1caf0) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Scripts/UnlimitedScroller.cs using Guid(c65fe2561537af94194d02d99bc1caf0) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '9a501b8b6af56bc4bbf08d7f606d5503') in 0.006709 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000143 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scripts/RegularSpawn.cs
-  artifactKey: Guid(ec88509cbade99946871e728e1dc6509) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Examples/Scripts/RegularSpawn.cs using Guid(ec88509cbade99946871e728e1dc6509) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '9744307a7e9a5647f78aedea4e0f2a23') in 0.006586 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000141 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scripts/CellTest.cs
-  artifactKey: Guid(143bdba8645b7384db92302ec719fa16) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Examples/Scripts/CellTest.cs using Guid(143bdba8645b7384db92302ec719fa16) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '034949ed6757ddfeb065e2aecd0d8b56') in 0.006619 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000133 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Prefabs/Popup.prefab
-  artifactKey: Guid(d7ffb8e6829a73448902e8d48184f941) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Examples/Prefabs/Popup.prefab using Guid(d7ffb8e6829a73448902e8d48184f941) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '7976278531ae1ac51b7c8c6841b06ed4') in 0.006741 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000122 seconds.
-  path: Assets/AssetStoreTools/Editor/AssetStoreTools.dll
-  artifactKey: Guid(db89eddc1931309408191e6d4644d3c7) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/AssetStoreTools/Editor/AssetStoreTools.dll using Guid(db89eddc1931309408191e6d4644d3c7) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: 'efaa6aef4564cabe0a4be06769a29848') in 0.019377 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000238 seconds.
-  path: Assets/AssetStoreTools/AS_Checklist.asset
-  artifactKey: Guid(13810f5143e722e489e83a38250822ab) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/AssetStoreTools/AS_Checklist.asset using Guid(13810f5143e722e489e83a38250822ab) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: 'd231540ab9406931bd9d4c7dd84800be') in 0.022121 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000134 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scripts/ScrollerTest.cs
-  artifactKey: Guid(a12d7ffb1fbe94b43a69af2b59eeda17) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Examples/Scripts/ScrollerTest.cs using Guid(a12d7ffb1fbe94b43a69af2b59eeda17) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '3a41d1bf83b0876c2adca0e2906bfbcb') in 0.006834 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000149 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab
-  artifactKey: Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab using Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: '1672cf924a5a84bfd8f9531b839f9495') in 0.006129 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000160 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scenes/Demo.unity
-  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)
-Start importing Assets/Unlimited Scroll UI/Examples/Scenes/Demo.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(2089858483,934ff659095e30574adcf32a4c2f97b5)  -> (artifact id: 'ca5e80c1a351e0f5232c6c99c4f49553') in 0.005635 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.000884 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.25 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.628 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.22 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1560 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 76.6 MB.
-System memory in use after: 76.7 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2044.
-Total: 1.391800 ms (FindLiveObjects: 0.119600 ms CreateObjectMapping: 0.043100 ms MarkObjects: 1.212800 ms  DeleteObjects: 0.015400 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 69.485051 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scripts/ScrollerTest.cs
-  artifactKey: Guid(a12d7ffb1fbe94b43a69af2b59eeda17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Examples/Scripts/ScrollerTest.cs using Guid(a12d7ffb1fbe94b43a69af2b59eeda17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a24e8157233619890c51aff6452663c') in 0.005934 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.011050 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab
-  artifactKey: Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab using Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9073394e67fe7fcc585b2928ef5c0f4c') in 0.035086 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.002029 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/RegularCell.cs
-  artifactKey: Guid(de3c7061077920d49a267e41fa111ec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Scripts/RegularCell.cs using Guid(de3c7061077920d49a267e41fa111ec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bf7e5ba7f7270c0b6f834b435b2802f') in 0.004266 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.006230 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/ICell.cs
-  artifactKey: Guid(d895363838619fc4ca8c0987d8ac46ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Scripts/ICell.cs using Guid(d895363838619fc4ca8c0987d8ac46ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b67b8bed7707f1acaef4f1d52ebb25b1') in 0.003727 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.001946 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Prefabs/Popup.prefab
-  artifactKey: Guid(d7ffb8e6829a73448902e8d48184f941) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Examples/Prefabs/Popup.prefab using Guid(d7ffb8e6829a73448902e8d48184f941) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33298073848d4648d4130020c01e6c2d') in 0.005191 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.001793 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/UnlimitedScroller.cs
-  artifactKey: Guid(c65fe2561537af94194d02d99bc1caf0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Scripts/UnlimitedScroller.cs using Guid(c65fe2561537af94194d02d99bc1caf0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fb0088dd8d8b3d749b7d035abed0b6b') in 0.003756 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.008004 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scripts/Popup.cs
-  artifactKey: Guid(38eb1967a32b3b14a9fdd93ebec2a44c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Examples/Scripts/Popup.cs using Guid(38eb1967a32b3b14a9fdd93ebec2a44c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6c6fbbaf95382c37a022cf9ecc334f3') in 0.001271 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.001776 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scenes/Demo.unity
-  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Examples/Scenes/Demo.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e57aa391d46d6e853646301bcf87a2dd') in 0.004287 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.006255 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Scripts/CellTest.cs
-  artifactKey: Guid(143bdba8645b7384db92302ec719fa16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Examples/Scripts/CellTest.cs using Guid(143bdba8645b7384db92302ec719fa16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '748f2d5d64c51b84dc4ab475eb48ce02') in 0.003677 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.553547 seconds.
-  path: Assets/Unlimited Scroll UI/UnlimitedExport.unitypackage
-  artifactKey: Guid(032455e437785d44f98d33ea1016a992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/UnlimitedExport.unitypackage using Guid(032455e437785d44f98d33ea1016a992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af556a83067d4a161fcdc997b288fd30') in 0.023714 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.000888 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.25 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.634 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.26 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1560 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 81.0 MB.
-System memory in use after: 81.1 MB.
-
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 2051.
-Total: 1.408500 ms (FindLiveObjects: 0.121800 ms CreateObjectMapping: 0.043900 ms MarkObjects: 1.222500 ms  DeleteObjects: 0.019300 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 781.608263 seconds.
-  path: Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab
-  artifactKey: Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Examples/Prefabs/Cell.prefab using Guid(074c0ce5b3ed30946bf700c01b8a0cc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5614f4e9c6d2434dbb3e5fb21bb5c75b') in 0.032622 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.000955 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.25 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.626 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.23 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1560 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 81.0 MB.
-System memory in use after: 81.1 MB.
-
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 2054.
-Total: 1.500900 ms (FindLiveObjects: 0.120700 ms CreateObjectMapping: 0.047000 ms MarkObjects: 1.315500 ms  DeleteObjects: 0.016800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.000860 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.25 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.624 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.23 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1560 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 81.0 MB.
-System memory in use after: 81.1 MB.
-
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 2057.
-Total: 1.374700 ms (FindLiveObjects: 0.116500 ms CreateObjectMapping: 0.043700 ms MarkObjects: 1.203100 ms  DeleteObjects: 0.010800 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 379.770717 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/RegularCell.cs
-  artifactKey: Guid(de3c7061077920d49a267e41fa111ec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Scripts/RegularCell.cs using Guid(de3c7061077920d49a267e41fa111ec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90b8baeb15a1565abb9f78224e76f06c') in 0.005895 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.002642 seconds.
-  path: Assets/Unlimited Scroll UI/Scripts/ICell.cs
-  artifactKey: Guid(d895363838619fc4ca8c0987d8ac46ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/Scripts/ICell.cs using Guid(d895363838619fc4ca8c0987d8ac46ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c30bd8e4e66c4984ef08532e730f0e52') in 0.003735 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.153816 seconds.
-  path: Assets/Unlimited Scroll UI/UnlimitedExport.unitypackage
-  artifactKey: Guid(032455e437785d44f98d33ea1016a992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Unlimited Scroll UI/UnlimitedExport.unitypackage using Guid(032455e437785d44f98d33ea1016a992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91b321782d068569362178f9a6c85c6f') in 0.011035 seconds 
+  path: Assets/Unlimited Scroll UI/UnlimitedScrollDocumentation.pdf
+  artifactKey: Guid(c184f0370a9377341bd284085b9bda28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Unlimited Scroll UI/UnlimitedScrollDocumentation.pdf using Guid(c184f0370a9377341bd284085b9bda28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a55f70994cc3db7b9900b6a6e2bb84ed') in 0.027420 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
