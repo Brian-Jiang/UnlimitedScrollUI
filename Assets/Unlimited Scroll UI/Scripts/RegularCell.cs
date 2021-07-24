@@ -1,25 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
+
+public enum AnimationType {
+    None, Fade, Scale, FadeAndScale
+}
+
+[Serializable]
+public class GenerateEvent: UnityEvent<int> {}
 
 [RequireComponent(typeof(CanvasGroup))]
 public class RegularCell : MonoBehaviour, ICell {
-    // private SlidingWindowElement element;
-    public TextMeshProUGUI text;
-    public float animInterval;
+    public AnimationType animationType;
+    [Range(0f, 1f)] public float animInterval;
+    [Range(0f, 1f)] public float fadeFrom;
+    [Range(0f, 1f)] public float scaleFrom;
+
+    public GenerateEvent onGenerated;
     
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
 
     public void OnGenerated(int index) {
+        onGenerated.Invoke(index);
+        if (animationType == AnimationType.None) return;
+        
         canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
-        canvasGroup.alpha = 0f;
+        canvasGroup.alpha = animationType == AnimationType.Scale ? 1f : fadeFrom;
         StartCoroutine(PlayAnimIn());
-        // print($"generated, index = {index}");
-        text.text = $"{index}";
     }
 
     private IEnumerator PlayAnimIn() {
@@ -31,12 +42,25 @@ public class RegularCell : MonoBehaviour, ICell {
                 t = 1f;
                 willFinish = true;
             }
-            
-            canvasGroup.alpha = t;
-            rectTransform.localScale = Vector3.one * t;
+
+            switch (animationType) {
+                case AnimationType.None:
+                    break;
+                case AnimationType.Fade:
+                    canvasGroup.alpha = Mathf.Lerp(fadeFrom, 1f, t);
+                    break;
+                case AnimationType.Scale:
+                    rectTransform.localScale = Vector3.one * Mathf.Lerp(scaleFrom, 1f, t);
+                    break;
+                case AnimationType.FadeAndScale:
+                    canvasGroup.alpha = Mathf.Lerp(fadeFrom, 1f, t);
+                    rectTransform.localScale = Vector3.one * Mathf.Lerp(scaleFrom, 1f, t);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             yield return null;
         }
-        
     }
 }

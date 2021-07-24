@@ -12,20 +12,24 @@ internal struct Cell {
     public GameObject go;
 }
 
+internal struct Padding {
+    public int top, bottom, left, right;
+}
+
 [RequireComponent(typeof(ScrollRect))]
 public class UnlimitedScroller : MonoBehaviour {
-    public bool HasElements { get; private set; } = false;
+    // public bool HasElements { get; private set; } = false;
 
     public int RowCount =>
-        totalCount % ElementPerRow == 0
-            ? totalCount / ElementPerRow
-            : totalCount / ElementPerRow + 1;
+        totalCount % CellPerRow == 0
+            ? totalCount / CellPerRow
+            : totalCount / CellPerRow + 1;
 
     public int FirstRow {
         get {
             if (layoutType == AutoLayoutType.Horizontal) return 0;
 
-            var row = (int) (contentTrans.anchoredPosition.y / cellY);
+            var row = (int) ((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
             return row < 0 ? 0 : row >= RowCount ? RowCount - 1 : row;
         }
     }
@@ -34,7 +38,7 @@ public class UnlimitedScroller : MonoBehaviour {
         get {
             if (layoutType == AutoLayoutType.Horizontal) return 0;
 
-            var row = (int) ((contentTrans.anchoredPosition.y + ViewportHeight) / cellY);
+            var row = (int) ((contentTrans.anchoredPosition.y + ViewportHeight - offsetPadding.top) / (cellY + spacingY));
             return row < 0 ? 0 : row >= RowCount ? RowCount - 1 : row;
         }
     }
@@ -43,8 +47,8 @@ public class UnlimitedScroller : MonoBehaviour {
         get {
             if (layoutType == AutoLayoutType.Vertical) return 0;
 
-            var col = (int) (-contentTrans.anchoredPosition.x / cellX);
-            return col < 0 ? 0 : col >= ElementPerRow ? ElementPerRow - 1 : col;
+            var col = (int) ((-contentTrans.anchoredPosition.x - offsetPadding.left) / (cellX + spacingX));
+            return col < 0 ? 0 : col >= CellPerRow ? CellPerRow - 1 : col;
         }
     }
 
@@ -52,8 +56,8 @@ public class UnlimitedScroller : MonoBehaviour {
         get {
             if (layoutType == AutoLayoutType.Vertical) return 0;
 
-            var col = (int) ((-contentTrans.anchoredPosition.x + ViewportWidth) / cellX);
-            return col < 0 ? 0 : col >= ElementPerRow ? ElementPerRow - 1 : col;
+            var col = (int) ((-contentTrans.anchoredPosition.x + ViewportWidth - offsetPadding.left) / (cellX + spacingX));
+            return col < 0 ? 0 : col >= CellPerRow ? CellPerRow - 1 : col;
         }
     }
 
@@ -75,7 +79,7 @@ public class UnlimitedScroller : MonoBehaviour {
         get => GetComponent<RectTransform>().rect.width;
     }
 
-    public int ElementPerRow {
+    public int CellPerRow {
         get {
             switch (layoutType) {
                 case AutoLayoutType.Vertical:
@@ -83,28 +87,28 @@ public class UnlimitedScroller : MonoBehaviour {
                 case AutoLayoutType.Horizontal:
                     return totalCount;
                 case AutoLayoutType.Grid:
-                    return elementPerRow;
+                    return cellPerRow;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
     }
 
-    public int elementPerRow;
+    public int cellPerRow;
     public bool matchContentWidth;
 
     public RectTransform contentTrans;
     public LayoutGroup layoutGroup;
     public AutoLayoutType layoutType;
-    public int extraRowCount;
+    // public int extraRowCount;
 
     private GameObject storedElement;
 
-
-    // private int viewportVisibleCount;
-
-    private float cellY;
     private float cellX;
+    private float cellY;
+    private float spacingX;
+    private float spacingY;
+    private Padding offsetPadding;
 
     // private int emptyRows;
 
@@ -119,26 +123,12 @@ public class UnlimitedScroller : MonoBehaviour {
     private int currentFirstCol;
     private int currentLastCol;
 
-    public void Generate(GameObject newElement, int newTotalCount) {
-        storedElement = newElement;
+    public void Generate(GameObject newCell, int newTotalCount) {
+        storedElement = newCell;
         totalCount = newTotalCount;
         InitParams();
         
-        currentFirstCol = FirstCol;
-        currentLastCol = LastCol;
-        currentFirstRow = FirstRow;
-        currentLastRow = LastRow;
-
-        print(ElementPerRow);
-        print($"first col: {currentFirstCol}, last col: {currentLastCol}");
-        print($"first row: {currentFirstRow}, last row: {currentLastRow}");
-        layoutGroup.padding.right = (int) ((ElementPerRow - LastCol - 1) * cellX);
-        layoutGroup.padding.bottom = (int) ((RowCount - LastRow - 1) * cellY);
-        for (var r = currentFirstRow; r <= currentLastRow; ++r) {
-            for (var c = currentFirstCol; c <= currentLastCol; ++c) {
-                GenerateCell(GetCellIndex(r, c));
-            }
-        }
+        GenerateAllCells();
     }
 
     private void InitParams() {
@@ -147,36 +137,45 @@ public class UnlimitedScroller : MonoBehaviour {
             case AutoLayoutType.Vertical:
                 cellX = rect.width;
                 cellY = rect.height;
-                elementPerRow = 1;
+                cellPerRow = 1;
+                spacingX = 0f;
+                spacingY = ((HorizontalOrVerticalLayoutGroup) layoutGroup).spacing;
                 break;
             case AutoLayoutType.Horizontal:
                 cellX = rect.width;
                 cellY = rect.height;
-                elementPerRow = totalCount;
+                cellPerRow = totalCount;
+                spacingX = ((HorizontalOrVerticalLayoutGroup) layoutGroup).spacing;
+                spacingY = 0f;
                 break;
             case AutoLayoutType.Grid:
                 var gridLayoutGroup = (GridLayoutGroup) layoutGroup;
                 cellX = gridLayoutGroup.cellSize.x;
                 cellY = gridLayoutGroup.cellSize.y;
-                elementPerRow = matchContentWidth ? (int) (ContentWidth / cellX) : elementPerRow;
+                spacingX = gridLayoutGroup.spacing.x;
+                spacingY = gridLayoutGroup.spacing.y;
+                cellPerRow = matchContentWidth ? (int) (ContentWidth / cellX) : cellPerRow;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
 
         currentElements = new List<Cell>();
-        ContentHeight = cellY * (
-            totalCount % ElementPerRow == 0
-                ? totalCount / ElementPerRow
-                : totalCount / ElementPerRow + 1);
-        print($"cellY: {cellY}, total: {totalCount}, ele/row: {ElementPerRow}");
-        ContentWidth = cellX * ElementPerRow;
-        // viewportVisibleCount = (int)(ViewportHeight / cellY + extraRowCount + 1) * elementPerRow;
+        offsetPadding = new Padding() {
+            top = layoutGroup.padding.top,
+            bottom = layoutGroup.padding.bottom, 
+            left = layoutGroup.padding.left, 
+            right = layoutGroup.padding.right
+        };
+        ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
+        // print($"cellY: {cellY}, total: {totalCount}, ele/row: {CellPerRow}");
+        ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
+        
         // emptyRows = 0;
     }
 
     private int GetCellIndex(int row, int col) {
-        return ElementPerRow * row + col;
+        return CellPerRow * row + col;
     }
 
     private int GetFirstGreater(int index) {
@@ -201,8 +200,8 @@ public class UnlimitedScroller : MonoBehaviour {
         var cell = new Cell() {go = instance, number = index};
         currentElements.Insert(order, cell);
 
-        var slidingElement = instance.GetComponent<ICell>();
-        slidingElement.OnGenerated(index);
+        var iCell = instance.GetComponent<ICell>();
+        iCell.OnGenerated(index);
     }
 
     private void DestroyCell(int index) {
@@ -227,16 +226,19 @@ public class UnlimitedScroller : MonoBehaviour {
         currentFirstRow = FirstRow;
         currentLastRow = LastRow;
 
-        // print(ElementPerRow);
+        // print(CellPerRow);
         // print($"first col: {currentFirstCol}, last col: {currentLastCol}");
         // print($"first row: {currentFirstRow}, last row: {currentLastRow}");
-        layoutGroup.padding.left = (int) (currentFirstCol * cellX);
-        layoutGroup.padding.right = (int) ((ElementPerRow - LastCol - 1) * cellX);
-        layoutGroup.padding.top = (int) (currentFirstRow * cellY);
-        layoutGroup.padding.bottom = (int) ((RowCount - LastRow - 1) * cellY);
+        
+        layoutGroup.padding.left = offsetPadding.left + (currentFirstCol == 0 ? 0 : (int) (currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
+        layoutGroup.padding.right = offsetPadding.right + (int) ((CellPerRow - LastCol - 1) * (cellX + spacingX));
+        layoutGroup.padding.top = offsetPadding.top + (currentFirstRow == 0 ? 0 : (int) (currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
+        layoutGroup.padding.bottom = offsetPadding.bottom + (int) ((RowCount - LastRow - 1) * (cellY + spacingY));
         for (var r = currentFirstRow; r <= currentLastRow; ++r) {
             for (var c = currentFirstCol; c <= currentLastCol; ++c) {
-                GenerateCell(GetCellIndex(r, c));
+                var index = GetCellIndex(r, c);
+                if(index >= totalCount) continue;
+                GenerateCell(index);
             }
         }
     }
@@ -254,8 +256,8 @@ public class UnlimitedScroller : MonoBehaviour {
             GenerateCell(i);
         }
 
-        if (onTop) layoutGroup.padding.top -= (int) cellY;
-        else layoutGroup.padding.bottom -= (int) cellY;
+        if (onTop) layoutGroup.padding.top -= (int) (cellY + spacingY);
+        else layoutGroup.padding.bottom -= (int) (cellY + spacingY);
     }
 
     private void GenerateCol(int col, bool onLeft) {
@@ -271,8 +273,8 @@ public class UnlimitedScroller : MonoBehaviour {
             GenerateCell(index);
         }
 
-        if (onLeft) layoutGroup.padding.left -= (int) cellX;
-        else layoutGroup.padding.right -= (int) cellX;
+        if (onLeft) layoutGroup.padding.left -= (int) (cellX + spacingX);
+        else layoutGroup.padding.right -= (int) (cellX + spacingX);
     }
 
     private void DestroyRow(int row, bool onTop) {
@@ -288,8 +290,8 @@ public class UnlimitedScroller : MonoBehaviour {
             DestroyCell(i);
         }
 
-        if (onTop) layoutGroup.padding.top += (int) cellY;
-        else layoutGroup.padding.bottom += (int) cellY;
+        if (onTop) layoutGroup.padding.top += (int) (cellY + spacingY);
+        else layoutGroup.padding.bottom += (int) (cellY + spacingY);
     }
 
     private void DestroyCol(int col, bool onLeft) {
@@ -306,8 +308,8 @@ public class UnlimitedScroller : MonoBehaviour {
             DestroyCell(index);
         }
 
-        if (onLeft) layoutGroup.padding.left += (int) cellX;
-        else layoutGroup.padding.right += (int) cellX;
+        if (onLeft) layoutGroup.padding.left += (int) (cellX + spacingX);
+        else layoutGroup.padding.right += (int) (cellX + spacingX);
     }
 
     private void Start() {
