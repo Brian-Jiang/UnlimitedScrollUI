@@ -12,8 +12,14 @@ namespace UnlimitedScrollUI {
     }
 
     [Serializable]
-    public class GenerateEvent : UnityEvent<int> {
-    }
+    public class GenerateEvent : UnityEvent<int> { }
+    
+    [Serializable]
+    public class BecomeVisibleEvent : UnityEvent<ScrollerPanelSide> { }
+    
+    [Serializable]
+    public class BecomeInvisibleEvent : UnityEvent<ScrollerPanelSide> { }
+    
 
     [RequireComponent(typeof(CanvasGroup))]
     public class RegularCell : MonoBehaviour, ICell {
@@ -23,6 +29,8 @@ namespace UnlimitedScrollUI {
         [Range(0f, 1f)] public float scaleFrom;
 
         public GenerateEvent onGenerated;
+        public BecomeVisibleEvent onBecomeVisible;
+        public BecomeInvisibleEvent onBecomeInvisible;
 
         private CanvasGroup canvasGroup;
         private RectTransform rectTransform;
@@ -37,8 +45,12 @@ namespace UnlimitedScrollUI {
             StartCoroutine(PlayAnimIn());
         }
 
+        public void OnBecomeVisible(ScrollerPanelSide side) {
+            onBecomeVisible.Invoke(side);
+        }
+
         public void OnBecomeInvisible(ScrollerPanelSide side) {
-            throw new NotImplementedException();
+            onBecomeInvisible.Invoke(side);
         }
 
         private IEnumerator PlayAnimIn() {

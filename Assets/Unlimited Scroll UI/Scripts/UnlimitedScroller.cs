@@ -11,7 +11,7 @@ namespace UnlimitedScrollUI {
     }
 
     public enum ScrollerPanelSide {
-        Top, Bottom, Left, Right
+        NoSide, Top, Bottom, Left, Right
     }
 
     internal struct Cell {
@@ -203,7 +203,7 @@ namespace UnlimitedScrollUI {
             return start;
         }
 
-        private void GenerateCell(int index) {
+        private void GenerateCell(int index, ScrollerPanelSide side) {
             var order = GetFirstGreater(index);
             var instance = Instantiate(storedElement, contentTrans);
             instance.GetComponent<Transform>().SetSiblingIndex(order);
@@ -212,12 +212,14 @@ namespace UnlimitedScrollUI {
 
             var iCell = instance.GetComponent<ICell>();
             iCell.OnGenerated(index);
+            iCell.OnBecomeVisible(side);
         }
 
-        private void DestroyCell(int index) {
+        private void DestroyCell(int index, ScrollerPanelSide side) {
             var order = GetFirstGreater(index - 1);
             var cell = currentElements[order];
             currentElements.RemoveAt(order);
+            cell.go.GetComponent<ICell>().OnBecomeInvisible(side);
             DestroyImmediate(cell.go);
         }
 
@@ -226,6 +228,7 @@ namespace UnlimitedScrollUI {
             for (var i = 0; i < total; i++) {
                 var cell = currentElements[0];
                 currentElements.RemoveAt(0);
+                cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
                 DestroyImmediate(cell.go);
             }
         }
@@ -252,7 +255,7 @@ namespace UnlimitedScrollUI {
                 for (var c = currentFirstCol; c <= currentLastCol; ++c) {
                     var index = GetCellIndex(r, c);
                     if (index >= totalCount) continue;
-                    GenerateCell(index);
+                    GenerateCell(index, ScrollerPanelSide.NoSide);
                 }
             }
         }
@@ -267,7 +270,7 @@ namespace UnlimitedScrollUI {
             var indexEnd = GetCellIndex(row, lastCol);
             indexEnd = indexEnd >= totalCount ? totalCount - 1 : indexEnd;
             for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
-                GenerateCell(i);
+                GenerateCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
             if (onTop) layoutGroup.padding.top -= (int) (cellY + spacingY);
@@ -284,7 +287,7 @@ namespace UnlimitedScrollUI {
             for (var i = firstRow; i <= lastRow; i++) {
                 var index = GetCellIndex(i, col);
                 if (index >= totalCount) continue;
-                GenerateCell(index);
+                GenerateCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
 
             if (onLeft) layoutGroup.padding.left -= (int) (cellX + spacingX);
@@ -301,7 +304,7 @@ namespace UnlimitedScrollUI {
             var indexEnd = GetCellIndex(row, lastCol);
             indexEnd = indexEnd >= totalCount ? totalCount - 1 : indexEnd;
             for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
-                DestroyCell(i);
+                DestroyCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
             if (onTop) layoutGroup.padding.top += (int) (cellY + spacingY);
@@ -319,7 +322,7 @@ namespace UnlimitedScrollUI {
                 // print($"row: {i}, col: {col}");
                 var index = GetCellIndex(i, col);
                 if (index >= totalCount) continue;
-                DestroyCell(index);
+                DestroyCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
 
             if (onLeft) layoutGroup.padding.left += (int) (cellX + spacingX);
@@ -331,7 +334,6 @@ namespace UnlimitedScrollUI {
             scrollRect.onValueChanged.AddListener(OnScroll);
         }
 
-        // TODO invisible side
         private void OnScroll(Vector2 position) {
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
                 LastRow < currentFirstRow) {
