@@ -8,7 +8,8 @@ namespace UnlimitedScrollUI.Example
 {
     public class InfoDisplayer : MonoBehaviour {
         public Text cellCount;
-        public Text infoDisplay;
+        public Text visibleDisplay;
+        public Text invisibleDisplay;
 
         private int totalCell;
         
@@ -27,8 +28,12 @@ namespace UnlimitedScrollUI.Example
             cellCount.text = $"Total cell: {totalCell}";
         }
 
-        public void UpdateTextDisplay(string text) {
-            infoDisplay.text = text;
+        public void UpdateVisibleDisplay(string text) {
+            visibleDisplay.text = text;
+        }
+        
+        public void UpdateInvisibleDisplay(string text) {
+            invisibleDisplay.text = text;
         }
     }
 }

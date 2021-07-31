@@ -28,12 +28,12 @@ namespace UnlimitedScrollUI.Example {
 
         public void DisplayVisibleText(ScrollerPanelSide side) {
             var sideName = Enum.GetName(typeof(ScrollerPanelSide), side);
-            InfoDisplayer.instance.UpdateTextDisplay($"Cell {index} visible from {sideName}.");
+            InfoDisplayer.instance.UpdateVisibleDisplay($"Cell {index} visible from {sideName}.");
         }
         
         public void DisplayInvisibleText(ScrollerPanelSide side) {
             var sideName = Enum.GetName(typeof(ScrollerPanelSide), side);
-            InfoDisplayer.instance.UpdateTextDisplay($"Cell {index} invisible to {sideName}.");
+            InfoDisplayer.instance.UpdateInvisibleDisplay($"Cell {index} invisible to {sideName}.");
         }
     }
 }

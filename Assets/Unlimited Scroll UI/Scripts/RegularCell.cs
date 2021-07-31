@@ -23,10 +23,17 @@ namespace UnlimitedScrollUI {
 
     [RequireComponent(typeof(CanvasGroup))]
     public class RegularCell : MonoBehaviour, ICell {
+        [Tooltip("What kind of animation you want.")]
         public AnimationType animationType;
-        [Range(0f, 1f)] public float animInterval;
-        [Range(0f, 1f)] public float fadeFrom;
-        [Range(0f, 1f)] public float scaleFrom;
+
+        [Tooltip("How long is the animation.")] [Range(0f, 1f)]
+        public float animInterval;
+
+        [Tooltip("Fade from this value if the animation has fading.")] [Range(0f, 1f)]
+        public float fadeFrom;
+
+        [Tooltip("Scale from this value if the animation has scaling.")] [Range(0f, 1f)]
+        public float scaleFrom;
 
         public GenerateEvent onGenerated;
         public BecomeVisibleEvent onBecomeVisible;

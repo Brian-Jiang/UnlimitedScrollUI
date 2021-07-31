@@ -23,15 +23,27 @@ namespace UnlimitedScrollUI {
         public int top, bottom, left, right;
     }
 
+    /// <summary>
+    /// Main class UnlimitedScroller that control the spawn and destroy of cells.
+    /// </summary>
     [RequireComponent(typeof(ScrollRect))]
     public class UnlimitedScroller : MonoBehaviour {
-        // public bool HasElements { get; private set; } = false;
+        /// <summary>
+        /// Whether this scroller has initialized and generate cells.
+        /// </summary>
+        public bool Generated { get; private set; }
 
+        /// <summary>
+        /// Total row count.
+        /// </summary>
         public int RowCount =>
             totalCount % CellPerRow == 0
                 ? totalCount / CellPerRow
                 : totalCount / CellPerRow + 1;
 
+        /// <summary>
+        /// The first visible row.
+        /// </summary>
         public int FirstRow {
             get {
                 if (layoutType == AutoLayoutType.Horizontal) return 0;
@@ -41,6 +53,9 @@ namespace UnlimitedScrollUI {
             }
         }
 
+        /// <summary>
+        /// The last visible row.
+        /// </summary>
         public int LastRow {
             get {
                 if (layoutType == AutoLayoutType.Horizontal) return 0;
@@ -102,13 +117,35 @@ namespace UnlimitedScrollUI {
                 }
             }
         }
-
-        public int cellPerRow;
+        
+        /// <summary>
+        /// Match cell per row to the width of Content. If set, cellPerRow will be ignored.
+        /// </summary>
+        [Tooltip("Match cell per row to the width of Content. If set, cellPerRow will be ignored.")]
         public bool matchContentWidth;
+        
+        /// <summary>
+        /// Cell Count per row if not match Content width.
+        /// </summary>
+        [Tooltip("Cell Count per row if not match Content width.")]
+        public int cellPerRow;
 
+        /// <summary>
+        /// The Content GameObject.
+        /// </summary>
+        [Tooltip("The Content GameObject.")]
         public RectTransform contentTrans;
+        
+        /// <summary>
+        /// The layout group component.
+        /// </summary>
+        [Tooltip("The layout group component.")]
         public LayoutGroup layoutGroup;
 
+        /// <summary>
+        /// Type of layout that is used.
+        /// </summary>
+        [Tooltip("Type of layout that is used.")]
         public AutoLayoutType layoutType;
         // public int extraRowCount;
 
@@ -133,9 +170,17 @@ namespace UnlimitedScrollUI {
         private int currentFirstCol;
         private int currentLastCol;
 
+        /// <summary>
+        /// Call this function to initialize and generate cells.
+        /// </summary>
+        /// <param name="newCell">The cell game object.</param>
+        /// <param name="newTotalCount">The total cell count you want to generate.</param>
         public void Generate(GameObject newCell, int newTotalCount) {
+            Generated = true;
             storedElement = newCell;
             totalCount = newTotalCount;
+            scrollRect = GetComponent<ScrollRect>();
+            scrollRect.onValueChanged.AddListener(OnScroll);
             InitParams();
 
             GenerateAllCells();
@@ -329,12 +374,9 @@ namespace UnlimitedScrollUI {
             else layoutGroup.padding.right += (int) (cellX + spacingX);
         }
 
-        private void Start() {
-            scrollRect = GetComponent<ScrollRect>();
-            scrollRect.onValueChanged.AddListener(OnScroll);
-        }
-
         private void OnScroll(Vector2 position) {
+            if (!Generated) return;
+            
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
                 LastRow < currentFirstRow) {
                 // print("regenerate");

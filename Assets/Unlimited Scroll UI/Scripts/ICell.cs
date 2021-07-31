@@ -3,13 +3,19 @@ namespace UnlimitedScrollUI {
     /// <para>If you want to have your own script for cell, implement this interface.</para>
     /// </summary>
     public interface ICell { 
+        /// <summary>
+        /// Called when the cell is generated. This is currently same as <c>OnBecomeVisible</c>.
+        /// </summary>
+        /// <param name="index">The index of the cell</param>
         void OnGenerated(int index);
+        
         /// <summary>
         /// Called when the cell become visible.
         /// </summary>
         /// <param name="side">The side that this cell become visible. For example, side = ScrollerPanelSide.Right means
         /// that the player is dragging the panel to left so that this cell appears from right.</param>
         void OnBecomeVisible(ScrollerPanelSide side);
+        
         /// <summary>
         /// Called when the cell become invisible.
         /// </summary>
