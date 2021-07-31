@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnlimitedScrollUI;
 
 public class ScrollerTest : MonoBehaviour {
     public GameObject cell;

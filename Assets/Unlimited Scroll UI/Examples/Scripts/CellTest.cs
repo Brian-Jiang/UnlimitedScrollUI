@@ -1,20 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CellTest : MonoBehaviour {
-    public Text text;
-    public GameObject popup;
+namespace UnlimitedScrollUI.Example {
+    public class CellTest : MonoBehaviour {
+        public Text text;
+        public GameObject popup;
 
-    public void SetText(int index) {
-        text.text = $"{index}";
-    }
+        private int index;
+        
+        public void SetText(int newIndex) {
+            index = newIndex;
+            text.text = $"{index}";
+        }
 
-    public void SetupPopup(int index) {
-        GetComponent<Button>().onClick.AddListener(() => {
-            var instance = Instantiate(popup, GameObject.Find("Canvas").transform);
-            instance.GetComponent<Popup>().text.text = $"You just clicked the cell {index}!";
-        });
+        public void SetupPopup(int newIndex) {
+            index = newIndex;
+            GetComponent<Button>().onClick.AddListener(() => {
+                var instance = Instantiate(popup, GameObject.Find("Canvas").transform);
+                instance.GetComponent<Popup>().text.text = $"You just clicked the cell {index}!";
+            });
+        }
+
+        public void ChangeCount(int count) {
+            InfoDisplayer.instance.UpdateCellCount(count);
+        }
+
+        public void DisplayVisibleText(ScrollerPanelSide side) {
+            var sideName = Enum.GetName(typeof(ScrollerPanelSide), side);
+            InfoDisplayer.instance.UpdateVisibleDisplay($"Cell {index} visible from {sideName}.");
+        }
+        
+        public void DisplayInvisibleText(ScrollerPanelSide side) {
+            var sideName = Enum.GetName(typeof(ScrollerPanelSide), side);
+            InfoDisplayer.instance.UpdateInvisibleDisplay($"Cell {index} invisible to {sideName}.");
+        }
     }
 }
