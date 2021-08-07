@@ -4,12 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UnlimitedScrollUI {
+    /// <summary>
+    /// The type of auto layout group you are using.
+    /// </summary>
     public enum AutoLayoutType {
         Vertical,
         Horizontal,
         Grid
     }
 
+    /// <summary>
+    /// The side of the scroller panel. Used for certain events.
+    /// </summary>
     public enum ScrollerPanelSide {
         NoSide, Top, Bottom, Left, Right
     }
@@ -66,6 +72,9 @@ namespace UnlimitedScrollUI {
             }
         }
 
+        /// <summary>
+        /// The first visible column.
+        /// </summary>
         public int FirstCol {
             get {
                 if (layoutType == AutoLayoutType.Vertical) return 0;
@@ -75,6 +84,9 @@ namespace UnlimitedScrollUI {
             }
         }
 
+        /// <summary>
+        /// The last visible column.
+        /// </summary>
         public int LastCol {
             get {
                 if (layoutType == AutoLayoutType.Vertical) return 0;
@@ -103,6 +115,10 @@ namespace UnlimitedScrollUI {
             get => GetComponent<RectTransform>().rect.width;
         }
 
+        /// <summary>
+        /// The calculated real number of cells per row.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public int CellPerRow {
             get {
                 switch (layoutType) {
@@ -143,9 +159,9 @@ namespace UnlimitedScrollUI {
         public LayoutGroup layoutGroup;
 
         /// <summary>
-        /// Type of layout that is used.
+        /// The type of auto layout group you are using. Please match with your auto layout group.
         /// </summary>
-        [Tooltip("Type of layout that is used.")]
+        [Tooltip("The type of auto layout group you are using. Please match with your auto layout group.")]
         public AutoLayoutType layoutType;
         // public int extraRowCount;
 
