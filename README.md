@@ -3,23 +3,23 @@
 
 ## Quick Setup
 **Step 1:** Add “UI/Scroll View” from Add GameObject menu.  
-![](.\Tools\DocFx\docfx_project\images\1.png)
+<img src="./Tools/DocFx/docfx_project/images/1.png" width=400>
 ----
 
 **Step 2:** Change the anchor of the “Content” object to upper left.  
-![](.\Tools\DocFx\docfx_project\images\2.png)
+<img src="./Tools/DocFx/docfx_project/images/2.png" width=400>
 ----
 
 **Step 3:** Add UnlimitedScroller with your desired auto layout type.  
-![](.\Tools\DocFx\docfx_project\images\3.png)
+<img src="./Tools/DocFx/docfx_project/images/3.png" width=400>
 ----
 
 **Step 4:** Drag and drop the scroll view to `Scroll Rect` field.  
-![](.\Tools\DocFx\docfx_project\images\4.png)
+<img src="./Tools/DocFx/docfx_project/images/4.png" width=400>
 ----
 
 **Step 5:** Prepare a cell prefab that has the `RegularCell` script or your custom script that implements the `ICell` interface.  
-![](.\Tools\DocFx\docfx_project\images\5.png)
+<img src="./Tools/DocFx/docfx_project/images/5.png" width=400>
 ----
 
 **Step 6:** To test it out immediately, add a `ScrollerTest` script below `Unlimited Scroller`, reference to your cell and set total count.  
