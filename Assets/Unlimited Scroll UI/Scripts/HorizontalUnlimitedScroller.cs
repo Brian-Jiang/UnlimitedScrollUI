@@ -8,19 +8,19 @@ namespace UnlimitedScrollUI {
         /// <inheritdoc cref="IUnlimitedScroller.Generated"/>
         /// </summary>
         public bool Generated { get; private set; }
-        
+
         /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.RowCount"/>
         /// There is only one row for horizontal layout.
         /// </summary>
         public int RowCount => 1;
-        
+
         /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.FirstRow"/>
         /// Always equals 0 since there is only one row.
         /// </summary>
         public int FirstRow => 0;
-        
+
         /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.LastRow"/>
         /// Always equals 0 since there is only one row.

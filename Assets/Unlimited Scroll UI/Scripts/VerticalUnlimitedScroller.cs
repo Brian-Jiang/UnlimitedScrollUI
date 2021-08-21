@@ -2,16 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnlimitedScrollUI
-{
-    public class VerticalUnlimitedScroller : VerticalLayoutGroup, IUnlimitedScroller
-    {
+namespace UnlimitedScrollUI {
+    public class VerticalUnlimitedScroller : VerticalLayoutGroup, IUnlimitedScroller {
         public bool Generated { get; private set; }
         public int RowCount => totalCount;
 
         public int FirstRow {
             get {
-                var row = (int) ((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
+                var row = (int)((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
                 return Mathf.Clamp(row, 0, RowCount - 1);
             }
         }
@@ -48,7 +46,7 @@ namespace UnlimitedScrollUI
         /// </summary>
         [Tooltip("The Content GameObject.")]
         private RectTransform contentTrans;
-        
+
         /// <summary>
         /// The layout group component.
         /// </summary>
@@ -70,14 +68,14 @@ namespace UnlimitedScrollUI
         private List<Cell> currentElements;
 
         public ScrollRect scrollRect;
-        
+
         private RectTransform scrollerRectTransform;
 
         private int currentFirstRow;
         private int currentLastRow;
         private int currentFirstCol;
         private int currentLastCol;
-        
+
         public void Generate(GameObject newCell, int newTotalCount) {
             layoutGroup = GetComponent<LayoutGroup>();
             Generated = true;
@@ -88,7 +86,7 @@ namespace UnlimitedScrollUI
 
             GenerateAllCells();
         }
-        
+
         private void InitParams() {
             var rect = storedElement.GetComponent<RectTransform>().rect;
             scrollerRectTransform = scrollRect.GetComponent<RectTransform>();
@@ -96,7 +94,7 @@ namespace UnlimitedScrollUI
             cellX = rect.width;
             cellY = rect.height;
             spacingX = 0f;
-            spacingY = ((HorizontalOrVerticalLayoutGroup) layoutGroup).spacing;
+            spacingY = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
 
             currentElements = new List<Cell>();
             offsetPadding = new Padding() {
@@ -135,7 +133,7 @@ namespace UnlimitedScrollUI
             var order = GetFirstGreater(index);
             var instance = Instantiate(storedElement, contentTrans);
             instance.GetComponent<Transform>().SetSiblingIndex(order);
-            var cell = new Cell() {go = instance, number = index};
+            var cell = new Cell() { go = instance, number = index };
             currentElements.Insert(order, cell);
 
             var iCell = instance.GetComponent<ICell>();
@@ -173,12 +171,12 @@ namespace UnlimitedScrollUI
 
             layoutGroup.padding.left = offsetPadding.left + (currentFirstCol == 0
                 ? 0
-                : (int) (currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
-            layoutGroup.padding.right = offsetPadding.right + (int) ((CellPerRow - LastCol - 1) * (cellX + spacingX));
+                : (int)(currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
+            layoutGroup.padding.right = offsetPadding.right + (int)((CellPerRow - LastCol - 1) * (cellX + spacingX));
             layoutGroup.padding.top = offsetPadding.top + (currentFirstRow == 0
                 ? 0
-                : (int) (currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
-            layoutGroup.padding.bottom = offsetPadding.bottom + (int) ((RowCount - LastRow - 1) * (cellY + spacingY));
+                : (int)(currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
+            layoutGroup.padding.bottom = offsetPadding.bottom + (int)((RowCount - LastRow - 1) * (cellY + spacingY));
             for (var r = currentFirstRow; r <= currentLastRow; ++r) {
                 for (var c = currentFirstCol; c <= currentLastCol; ++c) {
                     var index = GetCellIndex(r, c);
@@ -201,8 +199,8 @@ namespace UnlimitedScrollUI
                 GenerateCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
-            if (onTop) layoutGroup.padding.top -= (int) (cellY + spacingY);
-            else layoutGroup.padding.bottom -= (int) (cellY + spacingY);
+            if (onTop) layoutGroup.padding.top -= (int)(cellY + spacingY);
+            else layoutGroup.padding.bottom -= (int)(cellY + spacingY);
         }
 
         private void GenerateCol(int col, bool onLeft) {
@@ -218,8 +216,8 @@ namespace UnlimitedScrollUI
                 GenerateCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
 
-            if (onLeft) layoutGroup.padding.left -= (int) (cellX + spacingX);
-            else layoutGroup.padding.right -= (int) (cellX + spacingX);
+            if (onLeft) layoutGroup.padding.left -= (int)(cellX + spacingX);
+            else layoutGroup.padding.right -= (int)(cellX + spacingX);
         }
 
         private void DestroyRow(int row, bool onTop) {
@@ -235,8 +233,8 @@ namespace UnlimitedScrollUI
                 DestroyCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
-            if (onTop) layoutGroup.padding.top += (int) (cellY + spacingY);
-            else layoutGroup.padding.bottom += (int) (cellY + spacingY);
+            if (onTop) layoutGroup.padding.top += (int)(cellY + spacingY);
+            else layoutGroup.padding.bottom += (int)(cellY + spacingY);
         }
 
         private void DestroyCol(int col, bool onLeft) {
@@ -253,13 +251,13 @@ namespace UnlimitedScrollUI
                 DestroyCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
 
-            if (onLeft) layoutGroup.padding.left += (int) (cellX + spacingX);
-            else layoutGroup.padding.right += (int) (cellX + spacingX);
+            if (onLeft) layoutGroup.padding.left += (int)(cellX + spacingX);
+            else layoutGroup.padding.right += (int)(cellX + spacingX);
         }
 
         private void OnScroll(Vector2 position) {
             if (!Generated) return;
-            
+
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
                 LastRow < currentFirstRow) {
                 // print("regenerate");

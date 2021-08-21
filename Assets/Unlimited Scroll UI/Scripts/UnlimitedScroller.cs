@@ -17,7 +17,11 @@ namespace UnlimitedScrollUI {
     /// The side of the scroller panel. Used for certain events.
     /// </summary>
     public enum ScrollerPanelSide {
-        NoSide, Top, Bottom, Left, Right
+        NoSide,
+        Top,
+        Bottom,
+        Left,
+        Right
     }
 
     internal struct Cell {
@@ -54,7 +58,7 @@ namespace UnlimitedScrollUI {
             get {
                 if (layoutType == AutoLayoutType.Horizontal) return 0;
 
-                var row = (int) ((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
+                var row = (int)((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
                 return row < 0 ? 0 : row >= RowCount ? RowCount - 1 : row;
             }
         }
@@ -66,8 +70,8 @@ namespace UnlimitedScrollUI {
             get {
                 if (layoutType == AutoLayoutType.Horizontal) return 0;
 
-                var row = (int) ((contentTrans.anchoredPosition.y + ViewportHeight - offsetPadding.top) /
-                                 (cellY + spacingY));
+                var row = (int)((contentTrans.anchoredPosition.y + ViewportHeight - offsetPadding.top) /
+                                (cellY + spacingY));
                 return row < 0 ? 0 : row >= RowCount ? RowCount - 1 : row;
             }
         }
@@ -79,7 +83,7 @@ namespace UnlimitedScrollUI {
             get {
                 if (layoutType == AutoLayoutType.Vertical) return 0;
 
-                var col = (int) ((-contentTrans.anchoredPosition.x - offsetPadding.left) / (cellX + spacingX));
+                var col = (int)((-contentTrans.anchoredPosition.x - offsetPadding.left) / (cellX + spacingX));
                 return col < 0 ? 0 : col >= CellPerRow ? CellPerRow - 1 : col;
             }
         }
@@ -91,8 +95,8 @@ namespace UnlimitedScrollUI {
             get {
                 if (layoutType == AutoLayoutType.Vertical) return 0;
 
-                var col = (int) ((-contentTrans.anchoredPosition.x + ViewportWidth - offsetPadding.left) /
-                                 (cellX + spacingX));
+                var col = (int)((-contentTrans.anchoredPosition.x + ViewportWidth - offsetPadding.left) /
+                                (cellX + spacingX));
                 return col < 0 ? 0 : col >= CellPerRow ? CellPerRow - 1 : col;
             }
         }
@@ -133,13 +137,13 @@ namespace UnlimitedScrollUI {
                 }
             }
         }
-        
+
         /// <summary>
         /// Match cell per row to the width of Content. If set, cellPerRow will be ignored.
         /// </summary>
         [Tooltip("Match cell per row to the width of Content. If set, cellPerRow will be ignored.")]
         public bool matchContentWidth;
-        
+
         /// <summary>
         /// Cell Count per row if not match Content width.
         /// </summary>
@@ -149,9 +153,8 @@ namespace UnlimitedScrollUI {
         /// <summary>
         /// The Content GameObject.
         /// </summary>
-        [Tooltip("The Content GameObject.")]
-        public RectTransform contentTrans;
-        
+        [Tooltip("The Content GameObject.")] public RectTransform contentTrans;
+
         /// <summary>
         /// The layout group component.
         /// </summary>
@@ -210,22 +213,22 @@ namespace UnlimitedScrollUI {
                     cellY = rect.height;
                     cellPerRow = 1;
                     spacingX = 0f;
-                    spacingY = ((HorizontalOrVerticalLayoutGroup) layoutGroup).spacing;
+                    spacingY = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
                     break;
                 case AutoLayoutType.Horizontal:
                     cellX = rect.width;
                     cellY = rect.height;
                     cellPerRow = totalCount;
-                    spacingX = ((HorizontalOrVerticalLayoutGroup) layoutGroup).spacing;
+                    spacingX = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
                     spacingY = 0f;
                     break;
                 case AutoLayoutType.Grid:
-                    var gridLayoutGroup = (GridLayoutGroup) layoutGroup;
+                    var gridLayoutGroup = (GridLayoutGroup)layoutGroup;
                     cellX = gridLayoutGroup.cellSize.x;
                     cellY = gridLayoutGroup.cellSize.y;
                     spacingX = gridLayoutGroup.spacing.x;
                     spacingY = gridLayoutGroup.spacing.y;
-                    cellPerRow = matchContentWidth ? (int) (ContentWidth / cellX) : cellPerRow;
+                    cellPerRow = matchContentWidth ? (int)(ContentWidth / cellX) : cellPerRow;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -268,7 +271,7 @@ namespace UnlimitedScrollUI {
             var order = GetFirstGreater(index);
             var instance = Instantiate(storedElement, contentTrans);
             instance.GetComponent<Transform>().SetSiblingIndex(order);
-            var cell = new Cell() {go = instance, number = index};
+            var cell = new Cell() { go = instance, number = index };
             currentElements.Insert(order, cell);
 
             var iCell = instance.GetComponent<ICell>();
@@ -306,12 +309,12 @@ namespace UnlimitedScrollUI {
 
             layoutGroup.padding.left = offsetPadding.left + (currentFirstCol == 0
                 ? 0
-                : (int) (currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
-            layoutGroup.padding.right = offsetPadding.right + (int) ((CellPerRow - LastCol - 1) * (cellX + spacingX));
+                : (int)(currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
+            layoutGroup.padding.right = offsetPadding.right + (int)((CellPerRow - LastCol - 1) * (cellX + spacingX));
             layoutGroup.padding.top = offsetPadding.top + (currentFirstRow == 0
                 ? 0
-                : (int) (currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
-            layoutGroup.padding.bottom = offsetPadding.bottom + (int) ((RowCount - LastRow - 1) * (cellY + spacingY));
+                : (int)(currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
+            layoutGroup.padding.bottom = offsetPadding.bottom + (int)((RowCount - LastRow - 1) * (cellY + spacingY));
             for (var r = currentFirstRow; r <= currentLastRow; ++r) {
                 for (var c = currentFirstCol; c <= currentLastCol; ++c) {
                     var index = GetCellIndex(r, c);
@@ -334,8 +337,8 @@ namespace UnlimitedScrollUI {
                 GenerateCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
-            if (onTop) layoutGroup.padding.top -= (int) (cellY + spacingY);
-            else layoutGroup.padding.bottom -= (int) (cellY + spacingY);
+            if (onTop) layoutGroup.padding.top -= (int)(cellY + spacingY);
+            else layoutGroup.padding.bottom -= (int)(cellY + spacingY);
         }
 
         private void GenerateCol(int col, bool onLeft) {
@@ -351,8 +354,8 @@ namespace UnlimitedScrollUI {
                 GenerateCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
 
-            if (onLeft) layoutGroup.padding.left -= (int) (cellX + spacingX);
-            else layoutGroup.padding.right -= (int) (cellX + spacingX);
+            if (onLeft) layoutGroup.padding.left -= (int)(cellX + spacingX);
+            else layoutGroup.padding.right -= (int)(cellX + spacingX);
         }
 
         private void DestroyRow(int row, bool onTop) {
@@ -368,8 +371,8 @@ namespace UnlimitedScrollUI {
                 DestroyCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
-            if (onTop) layoutGroup.padding.top += (int) (cellY + spacingY);
-            else layoutGroup.padding.bottom += (int) (cellY + spacingY);
+            if (onTop) layoutGroup.padding.top += (int)(cellY + spacingY);
+            else layoutGroup.padding.bottom += (int)(cellY + spacingY);
         }
 
         private void DestroyCol(int col, bool onLeft) {
@@ -386,13 +389,13 @@ namespace UnlimitedScrollUI {
                 DestroyCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
 
-            if (onLeft) layoutGroup.padding.left += (int) (cellX + spacingX);
-            else layoutGroup.padding.right += (int) (cellX + spacingX);
+            if (onLeft) layoutGroup.padding.left += (int)(cellX + spacingX);
+            else layoutGroup.padding.right += (int)(cellX + spacingX);
         }
 
         private void OnScroll(Vector2 position) {
             if (!Generated) return;
-            
+
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
                 LastRow < currentFirstRow) {
                 // print("regenerate");
