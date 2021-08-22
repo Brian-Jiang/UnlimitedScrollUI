@@ -1,103 +1,43 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UnlimitedScrollUI {
-    /// <summary>
-    /// The type of auto layout group you are using.
-    /// </summary>
-    public enum AutoLayoutType {
-        Vertical,
-        Horizontal,
-        Grid
-    }
-
-    /// <summary>
-    /// The side of the scroller panel. Used for certain events.
-    /// </summary>
-    public enum ScrollerPanelSide {
-        NoSide,
-        Top,
-        Bottom,
-        Left,
-        Right
-    }
-
-    internal struct Cell {
-        public int number;
-        public GameObject go;
-    }
-
-    internal struct Padding {
-        public int top, bottom, left, right;
-    }
-
-    /// <summary>
-    /// Main class UnlimitedScroller that control the spawn and destroy of cells.
-    /// </summary>
-    [RequireComponent(typeof(ScrollRect))]
-    public class UnlimitedScroller : MonoBehaviour, IUnlimitedScroller {
-        /// <summary>
-        /// Whether this scroller has initialized and generate cells.
-        /// </summary>
+    public class GridUnlimitedScroller : GridLayoutGroup, IUnlimitedScroller {
         public bool Generated { get; private set; }
 
-        /// <summary>
-        /// Total row count.
-        /// </summary>
         public int RowCount =>
             totalCount % CellPerRow == 0
                 ? totalCount / CellPerRow
                 : totalCount / CellPerRow + 1;
 
-        /// <summary>
-        /// The first visible row.
-        /// </summary>
         public int FirstRow {
             get {
-                if (layoutType == AutoLayoutType.Horizontal) return 0;
-
                 var row = (int)((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
-                return row < 0 ? 0 : row >= RowCount ? RowCount - 1 : row;
+                return Mathf.Clamp(row, 0, RowCount - 1);
             }
         }
 
-        /// <summary>
-        /// The last visible row.
-        /// </summary>
         public int LastRow {
             get {
-                if (layoutType == AutoLayoutType.Horizontal) return 0;
-
                 var row = (int)((contentTrans.anchoredPosition.y + ViewportHeight - offsetPadding.top) /
                                 (cellY + spacingY));
-                return row < 0 ? 0 : row >= RowCount ? RowCount - 1 : row;
+                return Mathf.Clamp(row, 0, RowCount - 1);
             }
         }
 
-        /// <summary>
-        /// The first visible column.
-        /// </summary>
         public int FirstCol {
             get {
-                if (layoutType == AutoLayoutType.Vertical) return 0;
-
                 var col = (int)((-contentTrans.anchoredPosition.x - offsetPadding.left) / (cellX + spacingX));
-                return col < 0 ? 0 : col >= CellPerRow ? CellPerRow - 1 : col;
+                return Mathf.Clamp(col, 0, CellPerRow - 1);
             }
         }
 
-        /// <summary>
-        /// The last visible column.
-        /// </summary>
         public int LastCol {
             get {
-                if (layoutType == AutoLayoutType.Vertical) return 0;
-
                 var col = (int)((-contentTrans.anchoredPosition.x + ViewportWidth - offsetPadding.left) /
                                 (cellX + spacingX));
-                return col < 0 ? 0 : col >= CellPerRow ? CellPerRow - 1 : col;
+                return Mathf.Clamp(col, 0, CellPerRow - 1);
             }
         }
 
@@ -111,32 +51,9 @@ namespace UnlimitedScrollUI {
             private set => contentTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value);
         }
 
-        public float ViewportHeight {
-            get => GetComponent<RectTransform>().rect.height;
-        }
-
-        public float ViewportWidth {
-            get => GetComponent<RectTransform>().rect.width;
-        }
-
-        /// <summary>
-        /// The calculated real number of cells per row.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public int CellPerRow {
-            get {
-                switch (layoutType) {
-                    case AutoLayoutType.Vertical:
-                        return 1;
-                    case AutoLayoutType.Horizontal:
-                        return totalCount;
-                    case AutoLayoutType.Grid:
-                        return cellPerRow;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
+        public float ViewportHeight => scrollerRectTransform.rect.height;
+        public float ViewportWidth => scrollerRectTransform.rect.width;
+        public int CellPerRow => cellPerRow;
 
         /// <summary>
         /// Match cell per row to the width of Content. If set, cellPerRow will be ignored.
@@ -153,20 +70,13 @@ namespace UnlimitedScrollUI {
         /// <summary>
         /// The Content GameObject.
         /// </summary>
-        [Tooltip("The Content GameObject.")] public RectTransform contentTrans;
+        [Tooltip("The Content GameObject.")] private RectTransform contentTrans;
 
         /// <summary>
         /// The layout group component.
         /// </summary>
         [Tooltip("The layout group component.")]
         public LayoutGroup layoutGroup;
-
-        /// <summary>
-        /// The type of auto layout group you are using. Please match with your auto layout group.
-        /// </summary>
-        [Tooltip("The type of auto layout group you are using. Please match with your auto layout group.")]
-        public AutoLayoutType layoutType;
-        // public int extraRowCount;
 
         private GameObject storedElement;
 
@@ -176,29 +86,24 @@ namespace UnlimitedScrollUI {
         private float spacingY;
         private Padding offsetPadding;
 
-        // private int emptyRows;
-
         private int totalCount;
 
         private List<Cell> currentElements;
 
-        private ScrollRect scrollRect;
+        public ScrollRect scrollRect;
+
+        private RectTransform scrollerRectTransform;
 
         private int currentFirstRow;
         private int currentLastRow;
         private int currentFirstCol;
         private int currentLastCol;
 
-        /// <summary>
-        /// Call this function to initialize and generate cells.
-        /// </summary>
-        /// <param name="newCell">The cell game object.</param>
-        /// <param name="newTotalCount">The total cell count you want to generate.</param>
         public void Generate(GameObject newCell, int newTotalCount) {
+            layoutGroup = GetComponent<LayoutGroup>();
             Generated = true;
             storedElement = newCell;
             totalCount = newTotalCount;
-            scrollRect = GetComponent<ScrollRect>();
             scrollRect.onValueChanged.AddListener(OnScroll);
             InitParams();
 
@@ -206,33 +111,15 @@ namespace UnlimitedScrollUI {
         }
 
         private void InitParams() {
-            var rect = storedElement.GetComponent<RectTransform>().rect;
-            switch (layoutType) {
-                case AutoLayoutType.Vertical:
-                    cellX = rect.width;
-                    cellY = rect.height;
-                    cellPerRow = 1;
-                    spacingX = 0f;
-                    spacingY = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
-                    break;
-                case AutoLayoutType.Horizontal:
-                    cellX = rect.width;
-                    cellY = rect.height;
-                    cellPerRow = totalCount;
-                    spacingX = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
-                    spacingY = 0f;
-                    break;
-                case AutoLayoutType.Grid:
-                    var gridLayoutGroup = (GridLayoutGroup)layoutGroup;
-                    cellX = gridLayoutGroup.cellSize.x;
-                    cellY = gridLayoutGroup.cellSize.y;
-                    spacingX = gridLayoutGroup.spacing.x;
-                    spacingY = gridLayoutGroup.spacing.y;
-                    cellPerRow = matchContentWidth ? (int)(ContentWidth / cellX) : cellPerRow;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            scrollerRectTransform = scrollRect.GetComponent<RectTransform>();
+            contentTrans = GetComponent<RectTransform>();
+
+            var gridLayoutGroup = (GridLayoutGroup)layoutGroup;
+            cellX = gridLayoutGroup.cellSize.x;
+            cellY = gridLayoutGroup.cellSize.y;
+            spacingX = gridLayoutGroup.spacing.x;
+            spacingY = gridLayoutGroup.spacing.y;
+            cellPerRow = matchContentWidth ? (int)(ContentWidth / cellX) : cellPerRow;
 
             currentElements = new List<Cell>();
             offsetPadding = new Padding() {

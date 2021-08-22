@@ -5,10 +5,10 @@ public class ScrollerTest : MonoBehaviour {
     public GameObject cell;
     public int totalCount = 33;
     
-    private UnlimitedScroller unlimitedScroller;
+    private IUnlimitedScroller unlimitedScroller;
 
     private void Start() {
-        unlimitedScroller = GetComponent<UnlimitedScroller>();
+        unlimitedScroller = GetComponent<IUnlimitedScroller>();
         unlimitedScroller.Generate(cell, totalCount);
     }
 }

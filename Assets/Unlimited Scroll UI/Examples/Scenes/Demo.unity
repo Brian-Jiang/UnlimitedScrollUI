@@ -211,6 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 149755250}
+  - component: {fileID: 149755252}
   - component: {fileID: 149755251}
   m_Layer: 5
   m_Name: Content
@@ -247,7 +248,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 149755249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: a12d7ffb1fbe94b43a69af2b59eeda17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cell: {fileID: 3798934600628987672, guid: 074c0ce5b3ed30946bf700c01b8a0cc7, type: 3}
+  totalCount: 9999
+--- !u!114 &149755252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149755249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9dbe8e5cd84f544a2a7af22a535346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -259,9 +274,13 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 10, y: 10}
+  m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
+  matchContentWidth: 0
+  cellPerRow: 20
+  layoutGroup: {fileID: 0}
+  scrollRect: {fileID: 2062871382}
 --- !u!1 &180146370
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,8 +293,6 @@ GameObject:
   - component: {fileID: 180146376}
   - component: {fileID: 180146375}
   - component: {fileID: 180146374}
-  - component: {fileID: 180146373}
-  - component: {fileID: 180146372}
   m_Layer: 5
   m_Name: VerticalScrollView
   m_TagString: Untagged
@@ -305,37 +322,6 @@ RectTransform:
   m_AnchoredPosition: {x: 709, y: 18.529}
   m_SizeDelta: {x: 432.5078, y: 979.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &180146372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180146370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a12d7ffb1fbe94b43a69af2b59eeda17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cell: {fileID: 3798934600628987672, guid: 074c0ce5b3ed30946bf700c01b8a0cc7, type: 3}
-  totalCount: 33
---- !u!114 &180146373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180146370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65fe2561537af94194d02d99bc1caf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  matchContentWidth: 1
-  cellPerRow: 0
-  contentTrans: {fileID: 1947444139}
-  layoutGroup: {fileID: 1947444140}
-  layoutType: 0
 --- !u!114 &180146374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1947444139}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -739,7 +725,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2103333288}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999882
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1303,6 +1289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 505239786}
   - component: {fileID: 505239787}
+  - component: {fileID: 505239788}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1338,23 +1325,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 505239785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f8f171abad6ef2499fae30a283fcec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 50
-    m_Right: 0
-    m_Top: 20
+    m_Left: 25
+    m_Right: 25
+    m_Top: 40
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 30
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_Spacing: 25
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+  layoutGroup: {fileID: 0}
+  scrollRect: {fileID: 1820601128}
+--- !u!114 &505239788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505239785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12d7ffb1fbe94b43a69af2b59eeda17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cell: {fileID: 3798934600628987672, guid: 074c0ce5b3ed30946bf700c01b8a0cc7, type: 3}
+  totalCount: 33
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,8 +2304,6 @@ GameObject:
   - component: {fileID: 1820601130}
   - component: {fileID: 1820601129}
   - component: {fileID: 1820601128}
-  - component: {fileID: 1820601127}
-  - component: {fileID: 1820601126}
   m_Layer: 5
   m_Name: HorizontalScrollView
   m_TagString: Untagged
@@ -2332,37 +2333,6 @@ RectTransform:
   m_AnchoredPosition: {x: -375.58, y: -354}
   m_SizeDelta: {x: 1085.7, y: 234.2426}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1820601126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820601124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a12d7ffb1fbe94b43a69af2b59eeda17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cell: {fileID: 3798934600628987672, guid: 074c0ce5b3ed30946bf700c01b8a0cc7, type: 3}
-  totalCount: 33
---- !u!114 &1820601127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820601124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65fe2561537af94194d02d99bc1caf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  matchContentWidth: 1
-  cellPerRow: 0
-  contentTrans: {fileID: 505239786}
-  layoutGroup: {fileID: 505239787}
-  layoutType: 1
 --- !u!114 &1820601128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2377,7 +2347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 505239786}
   m_Horizontal: 1
-  m_Vertical: 1
+  m_Vertical: 0
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
@@ -2551,6 +2521,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1947444139}
+  - component: {fileID: 1947444141}
   - component: {fileID: 1947444140}
   m_Layer: 5
   m_Name: Content
@@ -2575,7 +2546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000045064495}
+  m_AnchoredPosition: {x: 0, y: 0.0000053806543}
   m_SizeDelta: {x: 1723.5, y: 217.24}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1947444140
@@ -2587,23 +2558,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1947444138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: a12d7ffb1fbe94b43a69af2b59eeda17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cell: {fileID: 3798934600628987672, guid: 074c0ce5b3ed30946bf700c01b8a0cc7, type: 3}
+  totalCount: 33
+--- !u!114 &1947444141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947444138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24607bd62bef64844b1035689cfd7c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 20
+    m_Left: 40
     m_Right: 0
-    m_Top: 50
-    m_Bottom: 50
+    m_Top: 25
+    m_Bottom: 25
   m_ChildAlignment: 0
-  m_Spacing: 60
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_Spacing: 25
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+  layoutGroup: {fileID: 0}
+  scrollRect: {fileID: 180146374}
 --- !u!1 &1984430709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,8 +2675,6 @@ GameObject:
   - component: {fileID: 2062871384}
   - component: {fileID: 2062871383}
   - component: {fileID: 2062871382}
-  - component: {fileID: 2062871386}
-  - component: {fileID: 2062871385}
   m_Layer: 5
   m_Name: GridScrollView
   m_TagString: Untagged
@@ -2787,37 +2772,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062871380}
   m_CullTransparentMesh: 1
---- !u!114 &2062871385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062871380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a12d7ffb1fbe94b43a69af2b59eeda17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cell: {fileID: 3798934600628987672, guid: 074c0ce5b3ed30946bf700c01b8a0cc7, type: 3}
-  totalCount: 9999
---- !u!114 &2062871386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062871380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65fe2561537af94194d02d99bc1caf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  matchContentWidth: 0
-  cellPerRow: 20
-  contentTrans: {fileID: 149755250}
-  layoutGroup: {fileID: 149755251}
-  layoutType: 2
 --- !u!1 &2103333287
 GameObject:
   m_ObjectHideFlags: 0
