@@ -7,51 +7,51 @@ namespace UnlimitedScrollUI
         /// <summary>
         /// Whether this scroller has initialized and generate cells.
         /// </summary>
-        public bool Generated { get; }
+        bool Generated { get; }
         
         /// <summary>
         /// Total row count.
         /// </summary>
-        public int RowCount { get; }
+        int RowCount { get; }
         
         /// <summary>
         /// The first visible row.
         /// </summary>
-        public int FirstRow { get; }
+        int FirstRow { get; }
         
         /// <summary>
         /// The last visible row.
         /// </summary>
-        public int LastRow { get; }
+        int LastRow { get; }
 
         /// <summary>
         /// The first visible column.
         /// </summary>
-        public int FirstCol { get; }
+        int FirstCol { get; }
 
         /// <summary>
         /// The last visible column.
         /// </summary>
-        public int LastCol { get; }
+        int LastCol { get; }
 
-        public float ContentHeight { get; }
+        float ContentHeight { get; }
 
-        public float ContentWidth { get; }
+        float ContentWidth { get; }
 
-        public float ViewportHeight { get; }
+        float ViewportHeight { get; }
 
-        public float ViewportWidth { get; }
+        float ViewportWidth { get; }
         
         /// <summary>
         /// The calculated real number of cells per row.
         /// </summary>
-        public int CellPerRow { get; }
+        int CellPerRow { get; }
 
         /// <summary>
         /// Call this function to initialize and generate cells.
         /// </summary>
         /// <param name="newCell">The cell game object.</param>
         /// <param name="newTotalCount">The total cell count you want to generate.</param>
-        public void Generate(GameObject newCell, int newTotalCount);
+        void Generate(GameObject newCell, int newTotalCount);
     }
 }
