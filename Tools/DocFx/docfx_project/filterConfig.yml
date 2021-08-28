@@ -1,0 +1,17 @@
+apiRules:
+  - include:
+      uidRegex: ^UnlimitedScrollUI\.?[^.]*
+      type: Namespace
+  - exclude:
+      uidRegex: .*
+      type: Namespace
+  - exclude:
+      uidRegex: ^System\.Object\..*$
+      type: Method
+  - exclude:
+      uidRegex: ^System\.?[a-zA-Z0-9\.]*
+      type: Type
+  - exclude:
+      uidRegex: ^UnityEngine\.?[a-zA-Z0-9\.]*
+      type: Type
+  

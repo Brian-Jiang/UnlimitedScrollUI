@@ -5,7 +5,9 @@
         {
           "src": "../../..",
           "files": [
-            "Assets/**/*.cs"
+            "UnlimitedScrollUI.csproj",
+            "UnlimitedScrollUIEditor.csproj",
+            "UnlimitedScrollUIExample.csproj"
           ],
           "exclude": [
             "Assets/Plugins/**"
@@ -13,6 +15,7 @@
         }
       ],
       "dest": "api",
+      "filter": "filterConfig.yml",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     }
@@ -59,6 +62,12 @@
           "_site/**"
         ]
       }
+    ],
+    "xref": [
+      "https://normanderwan.github.io/UnityXrefMaps/xrefmap.yml"
+    ],
+    "xrefService": [
+      "https://xref.docs.microsoft.com/query?uid={uid}"
     ],
     "dest": "_site",
     "globalMetadataFiles": [],
