@@ -34,16 +34,28 @@ namespace UnlimitedScrollUI
         /// </summary>
         int LastCol { get; }
 
+        /// <summary>
+        /// The height of the content.
+        /// </summary>
         float ContentHeight { get; }
 
+        /// <summary>
+        /// The width of the content.
+        /// </summary>
         float ContentWidth { get; }
 
+        /// <summary>
+        /// The height of the viewport.
+        /// </summary>
         float ViewportHeight { get; }
 
+        /// <summary>
+        /// The width of the viewport.
+        /// </summary>
         float ViewportWidth { get; }
         
         /// <summary>
-        /// The calculated real number of cells per row.
+        /// The calculated real number of cells per row or columns count.
         /// </summary>
         int CellPerRow { get; }
 

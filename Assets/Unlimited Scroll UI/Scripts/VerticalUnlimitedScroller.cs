@@ -4,9 +4,20 @@ using UnityEngine.UI;
 
 namespace UnlimitedScrollUI {
     public class VerticalUnlimitedScroller : VerticalLayoutGroup, IUnlimitedScroller {
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.Generated"/>
+        /// </summary>
         public bool Generated { get; private set; }
+        
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.RowCount"/>
+        /// This equals to the total cell count.
+        /// </summary>
         public int RowCount => totalCount;
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.FirstRow"/>
+        /// </summary>
         public int FirstRow {
             get {
                 var row = (int)((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
@@ -14,6 +25,9 @@ namespace UnlimitedScrollUI {
             }
         }
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.LastRow"/>
+        /// </summary>
         public int LastRow {
             get {
                 var row = (int)((contentTrans.anchoredPosition.y + ViewportHeight - offsetPadding.top) /
@@ -22,60 +36,79 @@ namespace UnlimitedScrollUI {
             }
         }
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.FirstCol"/>
+        /// Always equals 0 since there is only one column.
+        /// </summary>
         public int FirstCol => 0;
+        
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.LastCol"/>
+        /// Always equals 0 since there is only one column.
+        /// </summary>
         public int LastCol => 0;
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.ContentHeight"/>
+        /// </summary>
         public float ContentHeight {
             get => contentTrans.rect.height;
             private set => contentTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, value);
         }
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.ContentWidth"/>
+        /// </summary>
         public float ContentWidth {
             get => contentTrans.rect.width;
             private set => contentTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value);
         }
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.ViewportHeight"/>
+        /// </summary>
         public float ViewportHeight => scrollerRectTransform.rect.height;
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.ViewportWidth"/>
+        /// </summary>
         public float ViewportWidth => scrollerRectTransform.rect.width;
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.CellPerRow"/>
+        /// </summary>
         public int CellPerRow => 1;
-
+        
         /// <summary>
-        /// The Content GameObject.
+        /// The <c>ScrollRect</c> component on ScrollView.
         /// </summary>
-        [Tooltip("The Content GameObject.")]
+        [Tooltip("The ScrollRect component on ScrollView.")]
+        public ScrollRect scrollRect;
+        
         private RectTransform contentTrans;
-
-        /// <summary>
-        /// The layout group component.
-        /// </summary>
-        [Tooltip("The layout group component.")]
-        public LayoutGroup layoutGroup;
-
-        private GameObject storedElement;
-
+        private LayoutGroup layoutGroup;
+        private RectTransform scrollerRectTransform;
+        
         private float cellX;
         private float cellY;
         private float spacingX;
         private float spacingY;
         private Padding offsetPadding;
 
-        // private int emptyRows;
-
         private int totalCount;
-
+        private GameObject storedElement;
         private List<Cell> currentElements;
-
-        public ScrollRect scrollRect;
-
-        private RectTransform scrollerRectTransform;
-
+        
         private int currentFirstRow;
         private int currentLastRow;
         private int currentFirstCol;
         private int currentLastCol;
 
+        /// <summary>
+        /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
+        /// </summary>
+        /// <param name="newCell"><inheritdoc cref="IUnlimitedScroller.Generate"/></param>
+        /// <param name="newTotalCount"><inheritdoc cref="IUnlimitedScroller.Generate"/></param>
         public void Generate(GameObject newCell, int newTotalCount) {
             layoutGroup = GetComponent<LayoutGroup>();
             Generated = true;
@@ -104,10 +137,7 @@ namespace UnlimitedScrollUI {
                 right = layoutGroup.padding.right
             };
             ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
-            // print($"cellY: {cellY}, total: {totalCount}, ele/row: {CellPerRow}");
             ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
-
-            // emptyRows = 0;
         }
 
         private int GetCellIndex(int row, int col) {
@@ -165,10 +195,6 @@ namespace UnlimitedScrollUI {
             currentFirstRow = FirstRow;
             currentLastRow = LastRow;
 
-            // print(CellPerRow);
-            // print($"first col: {currentFirstCol}, last col: {currentLastCol}");
-            // print($"first row: {currentFirstRow}, last row: {currentLastRow}");
-
             layoutGroup.padding.left = offsetPadding.left + (currentFirstCol == 0
                 ? 0
                 : (int)(currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
@@ -187,9 +213,6 @@ namespace UnlimitedScrollUI {
         }
 
         private void GenerateRow(int row, bool onTop) {
-            // print($"generate row: {row}, ontop = {onTop}");
-            // var firstCol = FirstCol;
-            // var lastCol = LastCol;
             var firstCol = currentFirstCol;
             var lastCol = currentLastCol;
 
@@ -204,9 +227,6 @@ namespace UnlimitedScrollUI {
         }
 
         private void GenerateCol(int col, bool onLeft) {
-            // print($"generate col: {col}, onLeft = {onLeft}");
-            // var firstRow = FirstRow;
-            // var lastRow = LastRow;
             var firstRow = currentFirstRow;
             var lastRow = currentLastRow;
 
@@ -221,9 +241,6 @@ namespace UnlimitedScrollUI {
         }
 
         private void DestroyRow(int row, bool onTop) {
-            // print($"destroy row: {row}, ontop = {onTop}");
-            // var firstCol = FirstCol;
-            // var lastCol = LastCol;
             var firstCol = currentFirstCol;
             var lastCol = currentLastCol;
 
@@ -238,14 +255,10 @@ namespace UnlimitedScrollUI {
         }
 
         private void DestroyCol(int col, bool onLeft) {
-            // print($"destroy col: {col}, onLeft = {onLeft}");
-            // var firstRow = FirstRow;
-            // var lastRow = LastRow;
             var firstRow = currentFirstRow;
             var lastRow = currentLastRow;
 
             for (var i = firstRow; i <= lastRow; i++) {
-                // print($"row: {i}, col: {col}");
                 var index = GetCellIndex(i, col);
                 if (index >= totalCount) continue;
                 DestroyCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
@@ -260,11 +273,6 @@ namespace UnlimitedScrollUI {
 
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
                 LastRow < currentFirstRow) {
-                // print("regenerate");
-                // print($"current first col: {currentFirstCol}, last col: {currentLastCol}");
-                // print($"current first row: {currentFirstRow}, last row: {currentLastRow}");
-                // print($"first col: {FirstCol}, last col: {LastCol}");
-                // print($"first row: {FirstRow}, last row: {LastRow}");
                 DestroyAllCells();
                 GenerateAllCells();
                 return;
@@ -290,7 +298,6 @@ namespace UnlimitedScrollUI {
 
             if (currentFirstCol < FirstCol) {
                 // left col invisible
-                // print($"{currentFirstCol}, {FirstCol}");
                 for (var col = currentFirstCol; col < FirstCol; ++col) {
                     DestroyCol(col, true);
                 }
