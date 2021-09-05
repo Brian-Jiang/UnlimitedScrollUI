@@ -127,6 +127,9 @@ namespace UnlimitedScrollUI {
         private int currentFirstCol;
         private int currentLastCol;
 
+        private GameObject pendingDestroyGo;
+        private Dictionary<int, GameObject> cachedCells;
+
         /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
         /// </summary>
@@ -163,6 +166,12 @@ namespace UnlimitedScrollUI {
             };
             ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
             ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
+
+            pendingDestroyGo = new GameObject("[Dont Touch]");
+            pendingDestroyGo.transform.SetParent(transform);
+            pendingDestroyGo.SetActive(false);
+
+            cachedCells = new Dictionary<int, GameObject>(30);
         }
 
         private int GetCellIndex(int row, int col) {
@@ -185,9 +194,18 @@ namespace UnlimitedScrollUI {
         }
 
         private void GenerateCell(int index, ScrollerPanelSide side) {
+            GameObject instance;
+            if (cachedCells.ContainsKey(index)) {
+                instance = cachedCells[index];
+                instance.transform.SetParent(contentTrans);
+                cachedCells.Remove(index);
+            } else {
+                instance = Instantiate(storedElement, contentTrans);
+                instance.name = storedElement.name + "_" + index;
+            }
+            
             var order = GetFirstGreater(index);
-            var instance = Instantiate(storedElement, contentTrans);
-            instance.GetComponent<Transform>().SetSiblingIndex(order);
+            instance.transform.SetSiblingIndex(order);
             var cell = new Cell() { go = instance, number = index };
             currentElements.Insert(order, cell);
 
@@ -201,7 +219,10 @@ namespace UnlimitedScrollUI {
             var cell = currentElements[order];
             currentElements.RemoveAt(order);
             cell.go.GetComponent<ICell>().OnBecomeInvisible(side);
-            DestroyImmediate(cell.go);
+            cell.go.transform.SetParent(pendingDestroyGo.transform);
+            cachedCells.Add(index, cell.go);
+            // Destroy(cell.go);
+            // DestroyImmediate(cell.go);
         }
 
         private void DestroyAllCells() {
@@ -210,7 +231,9 @@ namespace UnlimitedScrollUI {
                 var cell = currentElements[0];
                 currentElements.RemoveAt(0);
                 cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
-                DestroyImmediate(cell.go);
+                // cell.go.transform.SetParent(pendingDestroyGo.transform);
+                Destroy(cell.go);
+                // DestroyImmediate(cell.go);
             }
         }
 
