@@ -24,8 +24,7 @@
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md",
+          "manual/intro.md",
           "toc.yml"
         ]
       },
@@ -37,12 +36,11 @@
         "dest": "api"
       },
       {
+        "src": "manual",
         "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
-          "toc.yml",
-          "*.md"
-        ]
+          "*.yml"
+        ],
+        "dest": "manual"
       }
     ],
     "resource": [

@@ -4,22 +4,16 @@ using UnityEngine.UI;
 
 namespace UnlimitedScrollUI {
     public class GridUnlimitedScroller : GridLayoutGroup, IUnlimitedScroller {
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.Generated"/>
-        /// </summary>
         public bool Generated { get; private set; }
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.RowCount"/>
-        /// </summary>
         public int RowCount =>
             totalCount % CellPerRow == 0
                 ? totalCount / CellPerRow
                 : totalCount / CellPerRow + 1;
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.FirstRow"/>
-        /// </summary>
         public int FirstRow {
             get {
                 var row = (int)((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
@@ -27,9 +21,7 @@ namespace UnlimitedScrollUI {
             }
         }
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.LastRow"/>
-        /// </summary>
         public int LastRow {
             get {
                 var row = (int)((contentTrans.anchoredPosition.y + ViewportHeight - offsetPadding.top) /
@@ -38,9 +30,7 @@ namespace UnlimitedScrollUI {
             }
         }
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.FirstCol"/>
-        /// </summary>
         public int FirstCol {
             get {
                 var col = (int)((-contentTrans.anchoredPosition.x - offsetPadding.left) / (cellX + spacingX));
@@ -48,9 +38,7 @@ namespace UnlimitedScrollUI {
             }
         }
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.LastCol"/>
-        /// </summary>
         public int LastCol {
             get {
                 var col = (int)((-contentTrans.anchoredPosition.x + ViewportWidth - offsetPadding.left) /
@@ -59,35 +47,25 @@ namespace UnlimitedScrollUI {
             }
         }
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.ContentHeight"/>
-        /// </summary>
         public float ContentHeight {
             get => contentTrans.rect.height;
             private set => contentTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, value);
         }
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.ContentWidth"/>
-        /// </summary>
         public float ContentWidth {
             get => contentTrans.rect.width;
             private set => contentTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value);
         }
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.ViewportHeight"/>
-        /// </summary>
         public float ViewportHeight => scrollerRectTransform.rect.height;
         
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.ViewportWidth"/>
-        /// </summary>
         public float ViewportWidth => scrollerRectTransform.rect.width;
         
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.CellPerRow"/>
-        /// </summary>
         public int CellPerRow => cellPerRow;
 
         /// <summary>
@@ -127,11 +105,7 @@ namespace UnlimitedScrollUI {
         private int currentFirstCol;
         private int currentLastCol;
 
-        /// <summary>
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
-        /// </summary>
-        /// <param name="newCell"><inheritdoc cref="IUnlimitedScroller.Generate"/></param>
-        /// <param name="newTotalCount"><inheritdoc cref="IUnlimitedScroller.Generate"/></param>
         public void Generate(GameObject newCell, int newTotalCount) {
             layoutGroup = GetComponent<LayoutGroup>();
             Generated = true;
