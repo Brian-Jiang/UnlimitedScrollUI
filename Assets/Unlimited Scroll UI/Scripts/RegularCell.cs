@@ -81,10 +81,7 @@ namespace UnlimitedScrollUI {
         private CanvasGroup canvasGroup;
         private RectTransform rectTransform;
 
-        /// <summary>
         /// <inheritdoc cref="ICell.OnGenerated"/>
-        /// </summary>
-        /// <param name="index"><inheritdoc cref="ICell.OnGenerated"/></param>
         public void OnGenerated(int index) {
             onGenerated.Invoke(index);
             if (animationType == AnimationType.None) return;
@@ -95,18 +92,12 @@ namespace UnlimitedScrollUI {
             StartCoroutine(PlayAnimIn());
         }
 
-        /// <summary>
         /// <inheritdoc cref="ICell.OnBecomeVisible"/>
-        /// </summary>
-        /// <param name="side"><inheritdoc cref="ICell.OnBecomeVisible"/></param>
         public void OnBecomeVisible(ScrollerPanelSide side) {
             onBecomeVisible.Invoke(side);
         }
 
-        /// <summary>
         /// <inheritdoc cref="ICell.OnBecomeInvisible"/>
-        /// </summary>
-        /// <param name="side"><inheritdoc cref="ICell.OnBecomeInvisible"/></param>
         public void OnBecomeInvisible(ScrollerPanelSide side) {
             onBecomeInvisible.Invoke(side);
         }

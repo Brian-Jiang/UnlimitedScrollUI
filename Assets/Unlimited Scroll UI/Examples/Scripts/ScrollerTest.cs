@@ -1,14 +1,22 @@
+using System.Collections;
 using UnityEngine;
-using UnlimitedScrollUI;
 
-public class ScrollerTest : MonoBehaviour {
-    public GameObject cell;
-    public int totalCount = 33;
-    
-    private IUnlimitedScroller unlimitedScroller;
+namespace UnlimitedScrollUI.Example {
+    public class ScrollerTest : MonoBehaviour {
+        public GameObject cell;
+        public int totalCount = 33;
 
-    private void Start() {
-        unlimitedScroller = GetComponent<IUnlimitedScroller>();
-        unlimitedScroller.Generate(cell, totalCount);
+        private IUnlimitedScroller unlimitedScroller;
+
+        private void Start() {
+            unlimitedScroller = GetComponent<IUnlimitedScroller>();
+            // Wait until the scroller size was set by other layout controllers.
+            StartCoroutine(DelayGenerate());
+        }
+
+        private IEnumerator DelayGenerate() {
+            yield return new WaitForEndOfFrame();
+            unlimitedScroller.Generate(cell, totalCount);
+        }
     }
 }
