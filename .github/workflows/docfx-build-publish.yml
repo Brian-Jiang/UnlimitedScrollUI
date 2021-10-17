@@ -34,9 +34,6 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@v1
         with:
           args: install docfx
-          
-      - name: Install dependencies
-        run: dotnet restore
         
       - name: DocFX Build
         working-directory: Tools/DocFx/docfx_project
