@@ -64,6 +64,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: Tools/DocFx/docfx_project/_site
+          publish_dir: _site
           force_orphan: true
 
