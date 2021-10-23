@@ -84,17 +84,18 @@ namespace UnlimitedScrollUI {
         /// <inheritdoc cref="ICell.OnGenerated"/>
         public void OnGenerated(int index) {
             onGenerated.Invoke(index);
+        }
+
+        /// <inheritdoc cref="ICell.OnBecomeVisible"/>
+        public void OnBecomeVisible(ScrollerPanelSide side) {
+            onBecomeVisible.Invoke(side);
+            
             if (animationType == AnimationType.None) return;
 
             canvasGroup = GetComponent<CanvasGroup>();
             rectTransform = GetComponent<RectTransform>();
             canvasGroup.alpha = animationType == AnimationType.Scale ? 1f : fadeFrom;
             StartCoroutine(PlayAnimIn());
-        }
-
-        /// <inheritdoc cref="ICell.OnBecomeVisible"/>
-        public void OnBecomeVisible(ScrollerPanelSide side) {
-            onBecomeVisible.Invoke(side);
         }
 
         /// <inheritdoc cref="ICell.OnBecomeInvisible"/>

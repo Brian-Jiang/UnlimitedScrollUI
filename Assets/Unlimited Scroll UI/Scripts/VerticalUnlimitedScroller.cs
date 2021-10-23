@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 namespace UnlimitedScrollUI {
     public class VerticalUnlimitedScroller : VerticalLayoutGroup, IUnlimitedScroller {
+        #region Properties
+        
         /// <inheritdoc cref="IUnlimitedScroller.Generated"/>
         public bool Generated { get; private set; }
         
@@ -57,11 +59,23 @@ namespace UnlimitedScrollUI {
         /// <inheritdoc cref="IUnlimitedScroller.CellPerRow"/>
         public int CellPerRow => 1;
         
+        #endregion
+        
+        #region Public Fields
+        
+        /// <summary>
+        /// Max size of cached cells.
+        /// </summary>
+        [Tooltip("Max size of cached cells.")]
+        public uint cacheSize;
+        
         /// <summary>
         /// The <c>ScrollRect</c> component on ScrollView.
         /// </summary>
         [Tooltip("The ScrollRect component on ScrollView.")]
         public ScrollRect scrollRect;
+        
+        #endregion
         
         private RectTransform contentTrans;
         private LayoutGroup layoutGroup;
@@ -81,6 +95,9 @@ namespace UnlimitedScrollUI {
         private int currentLastRow;
         private int currentFirstCol;
         private int currentLastCol;
+        
+        private GameObject pendingDestroyGo;
+        private LRUCache<int, GameObject> cachedCells;
 
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
         public void Generate(GameObject newCell, int newTotalCount) {
@@ -92,6 +109,11 @@ namespace UnlimitedScrollUI {
             InitParams();
 
             GenerateAllCells();
+        }
+        
+        /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>
+        public void SetCacheSize(uint newSize) {
+            cachedCells.SetCapacity(newSize);
         }
 
         private void InitParams() {
@@ -112,6 +134,12 @@ namespace UnlimitedScrollUI {
             };
             ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
             ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
+            
+            pendingDestroyGo = new GameObject("[Cache Node]");
+            pendingDestroyGo.transform.SetParent(transform);
+            pendingDestroyGo.SetActive(false);
+
+            cachedCells = new LRUCache<int, GameObject>((_, go) => Destroy(go), cacheSize);
         }
 
         private int GetCellIndex(int row, int col) {
@@ -134,14 +162,25 @@ namespace UnlimitedScrollUI {
         }
 
         private void GenerateCell(int index, ScrollerPanelSide side) {
+            ICell iCell;
+            if (cachedCells.TryGet(index, out var instance)) {
+                instance.transform.SetParent(contentTrans);
+                cachedCells.Remove(index);
+                
+                iCell = instance.GetComponent<ICell>();
+            } else {
+                instance = Instantiate(storedElement, contentTrans);
+                instance.name = storedElement.name + "_" + index;
+                
+                iCell = instance.GetComponent<ICell>();
+                iCell.OnGenerated(index);
+            }
+            
             var order = GetFirstGreater(index);
-            var instance = Instantiate(storedElement, contentTrans);
             instance.GetComponent<Transform>().SetSiblingIndex(order);
             var cell = new Cell() { go = instance, number = index };
             currentElements.Insert(order, cell);
 
-            var iCell = instance.GetComponent<ICell>();
-            iCell.OnGenerated(index);
             iCell.OnBecomeVisible(side);
         }
 
@@ -150,7 +189,8 @@ namespace UnlimitedScrollUI {
             var cell = currentElements[order];
             currentElements.RemoveAt(order);
             cell.go.GetComponent<ICell>().OnBecomeInvisible(side);
-            DestroyImmediate(cell.go);
+            cell.go.transform.SetParent(pendingDestroyGo.transform);
+            cachedCells.Add(index, cell.go);
         }
 
         private void DestroyAllCells() {
@@ -159,7 +199,7 @@ namespace UnlimitedScrollUI {
                 var cell = currentElements[0];
                 currentElements.RemoveAt(0);
                 cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
-                DestroyImmediate(cell.go);
+                Destroy(cell.go);
             }
         }
 

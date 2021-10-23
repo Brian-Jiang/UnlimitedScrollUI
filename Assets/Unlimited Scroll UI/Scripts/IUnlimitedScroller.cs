@@ -66,6 +66,11 @@ namespace UnlimitedScrollUI
         /// <param name="newTotalCount">The total cell count you want to generate.</param>
         void Generate(GameObject newCell, int newTotalCount);
 
+        /// <summary>
+        /// Set a new caching size. If smaller than current size, cache will be
+        /// trimmed to the new size
+        /// </summary>
+        /// <param name="newSize">New cache size.</param>
         void SetCacheSize(uint newSize);
     }
 }

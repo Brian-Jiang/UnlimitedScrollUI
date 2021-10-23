@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 337, y: -416}
+  m_AnchoredPosition: {x: 337, y: -361}
   m_SizeDelta: {x: 266.0481, y: 184.2517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89485360
@@ -803,7 +803,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2103333289}
   m_HandleRect: {fileID: 2103333288}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1317,7 +1317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 337, y: -130}
+  m_AnchoredPosition: {x: 337, y: -145}
   m_SizeDelta: {x: 266.0481, y: 184.2517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &499542267
@@ -1425,6 +1425,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+  cacheSize: 5
   scrollRect: {fileID: 1820601128}
 --- !u!114 &505239788
 MonoBehaviour:
@@ -2492,7 +2493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 337, y: 384.5}
+  m_AnchoredPosition: {x: 337, y: 349.9}
   m_SizeDelta: {x: 251.6256, y: 45.6124}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1424862302
@@ -2635,7 +2636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 337, y: 130}
+  m_AnchoredPosition: {x: 337, y: 73}
   m_SizeDelta: {x: 266.0481, y: 184.2517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1434242523
@@ -3055,7 +3056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000034719706}
+  m_AnchoredPosition: {x: 0, y: -0.00012207031}
   m_SizeDelta: {x: 1723.5, y: 217.24}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1947444140
@@ -3098,6 +3099,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+  cacheSize: 3
   scrollRect: {fileID: 180146374}
 --- !u!1 &1984430709
 GameObject:
@@ -3389,8 +3391,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000025749, y: 88.4}
-  m_SizeDelta: {x: 224.9581, y: 100.7005}
+  m_AnchoredPosition: {x: 0.000025749, y: 95.1}
+  m_SizeDelta: {x: 224.9581, y: 133.1049}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109699117
 MonoBehaviour:
@@ -3414,7 +3416,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 39
+    m_FontSize: 37
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -3425,7 +3427,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Change cell cache size below.
+  m_Text: Change grid cell cache size below.
 --- !u!222 &2109699118
 CanvasRenderer:
   m_ObjectHideFlags: 0
