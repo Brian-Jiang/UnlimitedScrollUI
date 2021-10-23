@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 namespace UnlimitedScrollUI {
     public class GridUnlimitedScroller : GridLayoutGroup, IUnlimitedScroller {
+        #region Properties
+
         /// <inheritdoc cref="IUnlimitedScroller.Generated"/>
         public bool Generated { get; private set; }
 
@@ -68,6 +70,10 @@ namespace UnlimitedScrollUI {
         /// <inheritdoc cref="IUnlimitedScroller.CellPerRow"/>
         public int CellPerRow => cellPerRow;
 
+        #endregion
+
+        #region Public Fields
+
         /// <summary>
         /// Match cell per row to the width of Content. If set, cellPerRow will be ignored.
         /// </summary>
@@ -79,13 +85,21 @@ namespace UnlimitedScrollUI {
         /// </summary>
         [Tooltip("Cell Count per row if not match Content width.")]
         public int cellPerRow;
+
+        /// <summary>
+        /// Max size of cached cells.
+        /// </summary>
+        [Tooltip("Max size of cached cells.")]
+        public uint cacheSize;
         
         /// <summary>
         /// The <c>ScrollRect</c> component on ScrollView.
         /// </summary>
         [Tooltip("The ScrollRect component on ScrollView.")]
         public ScrollRect scrollRect;
-        
+
+        #endregion
+
         private RectTransform contentTrans;
         private LayoutGroup layoutGroup;
         private RectTransform scrollerRectTransform;
@@ -106,7 +120,7 @@ namespace UnlimitedScrollUI {
         private int currentLastCol;
 
         private GameObject pendingDestroyGo;
-        private Dictionary<int, GameObject> cachedCells;
+        private LRUCache<int, GameObject> cachedCells;
 
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
         public void Generate(GameObject newCell, int newTotalCount) {
@@ -118,6 +132,10 @@ namespace UnlimitedScrollUI {
             InitParams();
 
             GenerateAllCells();
+        }
+
+        public void SetCacheSize(uint newSize) {
+            cachedCells.SetCapacity(newSize);
         }
 
         private void InitParams() {
@@ -141,11 +159,11 @@ namespace UnlimitedScrollUI {
             ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
             ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
 
-            pendingDestroyGo = new GameObject("[Dont Touch]");
+            pendingDestroyGo = new GameObject("[Cache Node]");
             pendingDestroyGo.transform.SetParent(transform);
             pendingDestroyGo.SetActive(false);
 
-            cachedCells = new Dictionary<int, GameObject>(30);
+            cachedCells = new LRUCache<int, GameObject>((_, go) => { Destroy(go);}, cacheSize);
         }
 
         private int GetCellIndex(int row, int col) {
@@ -168,16 +186,14 @@ namespace UnlimitedScrollUI {
         }
 
         private void GenerateCell(int index, ScrollerPanelSide side) {
-            GameObject instance;
-            if (cachedCells.ContainsKey(index)) {
-                instance = cachedCells[index];
+            if (cachedCells.TryGet(index, out var instance)) {
                 instance.transform.SetParent(contentTrans);
                 cachedCells.Remove(index);
             } else {
                 instance = Instantiate(storedElement, contentTrans);
                 instance.name = storedElement.name + "_" + index;
             }
-            
+
             var order = GetFirstGreater(index);
             instance.transform.SetSiblingIndex(order);
             var cell = new Cell() { go = instance, number = index };

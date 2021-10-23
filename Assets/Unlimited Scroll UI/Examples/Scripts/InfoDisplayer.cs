@@ -3,9 +3,14 @@ using UnityEngine.UI;
 
 namespace UnlimitedScrollUI.Example {
     public class InfoDisplayer : MonoBehaviour {
+        public InputField sizeInput;
+        public Button confirmBtn;
+        
         public Text cellCount;
         public Text visibleDisplay;
         public Text invisibleDisplay;
+
+        public GridUnlimitedScroller gridUnlimitedScroller;
 
         private int totalCell;
 
@@ -17,6 +22,7 @@ namespace UnlimitedScrollUI.Example {
             }
 
             totalCell = 0;
+            confirmBtn.onClick.AddListener(() => gridUnlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));
         }
 
         public void UpdateCellCount(int count) {
