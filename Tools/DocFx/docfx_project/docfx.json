@@ -5,9 +5,7 @@
         {
           "src": "../../..",
           "files": [
-            "UnlimitedScrollUI.csproj",
-            "UnlimitedScrollUIEditor.csproj",
-            "UnlimitedScrollUIExample.csproj"
+            "Assets/**/*.cs"
           ],
           "exclude": [
             "Assets/Plugins/**"
