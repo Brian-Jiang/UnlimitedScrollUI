@@ -1,5 +1,5 @@
 - name: Manual
   href: manual/
-  homepage: manual/intro.md
+  topicHref: manual/intro.md
 - name: API Documentation
   href: api/
