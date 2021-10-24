@@ -1425,7 +1425,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
-  cacheSize: 5
+  cacheSize: 0
   scrollRect: {fileID: 1820601128}
 --- !u!114 &505239788
 MonoBehaviour:
@@ -3099,7 +3099,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
-  cacheSize: 3
+  cacheSize: 0
   scrollRect: {fileID: 180146374}
 --- !u!1 &1984430709
 GameObject:
