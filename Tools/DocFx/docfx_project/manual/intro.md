@@ -21,6 +21,7 @@
 
 
 ## References
+Please go to this website for full reference: https://brian-jiang.github.io/UnlimitedScrollUI/api/UnlimitedScrollUI.html
 ### UnlimitedScroller  class
 #### Fields
 **Cell Per Row**: How many cells you want in a row. Only has effect if you uncheck “Match Content Width” and use Grid Layout Group.  
