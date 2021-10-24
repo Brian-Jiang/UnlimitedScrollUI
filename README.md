@@ -1,5 +1,5 @@
 # Unlimited Scroll UI
-#### version 0.9.0 
+#### version 1.0.0 
 
 ## Quick Setup
 **Step 1:** Add “UI/Scroll View” from Add GameObject menu.  
