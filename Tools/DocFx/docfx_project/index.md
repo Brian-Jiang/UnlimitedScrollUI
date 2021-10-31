@@ -19,31 +19,11 @@
 
 **Step 6:** To test it out immediately, add a `ScrollerTest` script below `Unlimited Scroller`, reference to your cell and set total count.
 
-
 ## References
 Please go to this website for full reference: https://brian-jiang.github.io/UnlimitedScrollUI/api/UnlimitedScrollUI.html
-### UnlimitedScroller  class
-#### Fields
-**Cell Per Row**: How many cells you want in a row. Only has effect if you uncheck “Match Content Width” and use Grid Layout Group.  
-**Match Content Width**: Set Cell Per Row to fill the width of content. Only has effect if you use Grid Layout Group.  
-**Content Trans**: RectTransform of your content.  
-**Layout Group**: Layout Group on your content.  
-**Layout Type**: Type of your layout group.
-
-### RegularCell  class
-#### Fields
-**Animation Type**: Type of animation you want to use when the cell becomes visible.  
-**Animation Interval**: Length of the animation.  
-**Fade From**: Animate transparency from this value to 1 if you choose to fade.  
-**Scale From**: Scale from this value to 1 if you choose to scale.  
-**On Generated**: You can add your own listeners to this event to be called when the cell becomes visible.
-
-### ICell interface
-#### Methods
-**On Generated**: Called when the cell is generated.
-
 
 ## Supports
-If you have any questions, please comment [here](http://u3d.as/2z2a)  
-Or email me directly at: bjjx1999@live.com  
+If you have any questions, please post [here](https://github.com/Brian-Jiang/UnlimitedScrollUI)
+or comment [here](http://u3d.as/2z2a)  
+Or email me directly at: [bjjx1999@live.com](mailto:bjjx1999@live.com)  
 Thank you for your support!

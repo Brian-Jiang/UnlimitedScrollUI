@@ -72,5 +72,15 @@ namespace UnlimitedScrollUI
         /// </summary>
         /// <param name="newSize">New cache size.</param>
         void SetCacheSize(uint newSize);
+
+        /// <summary>
+        /// Clear all cells including cache.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
+        /// Clear all cache. This will not change the cache size.
+        /// </summary>
+        void ClearCache();
     }
 }
