@@ -1772,7 +1772,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 149755252}
         m_TargetAssemblyTypeName: UnlimitedScrollUI.GridUnlimitedScroller, UnlimitedScrollUI
-        m_MethodName: ClearCache
+        m_MethodName: Clear
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
