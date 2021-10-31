@@ -82,6 +82,12 @@ namespace UnlimitedScrollUI {
             Trim();
         }
 
+        public void Clear() {
+            while (Count > 0) {
+                RemoveFirst();
+            }
+        }
+
         private void Trim() {
             while (Count > capacity) {
                 RemoveFirst();

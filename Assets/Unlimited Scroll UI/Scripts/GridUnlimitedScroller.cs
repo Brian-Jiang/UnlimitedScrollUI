@@ -100,6 +100,8 @@ namespace UnlimitedScrollUI {
 
         #endregion
 
+        #region Private Fields
+
         private RectTransform contentTrans;
         private LayoutGroup layoutGroup;
         private RectTransform scrollerRectTransform;
@@ -122,6 +124,8 @@ namespace UnlimitedScrollUI {
         private GameObject pendingDestroyGo;
         private LRUCache<int, GameObject> cachedCells;
 
+        #endregion
+
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
         public void Generate(GameObject newCell, int newTotalCount) {
             layoutGroup = GetComponent<LayoutGroup>();
@@ -131,12 +135,26 @@ namespace UnlimitedScrollUI {
             scrollRect.onValueChanged.AddListener(OnScroll);
             InitParams();
 
+            if (totalCount <= 0) return;
             GenerateAllCells();
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>
         public void SetCacheSize(uint newSize) {
             cachedCells.SetCapacity(newSize);
+        }
+
+        /// <inheritdoc cref="IUnlimitedScroller.Clear"/>
+        public void Clear() {
+            DestroyAllCells();
+            ClearCache();
+            Destroy(pendingDestroyGo);
+            Generated = false;
+        }
+
+        /// <inheritdoc cref="IUnlimitedScroller.ClearCache"/>
+        public void ClearCache() {
+            cachedCells.Clear();
         }
 
         private void InitParams() {
@@ -208,26 +226,7 @@ namespace UnlimitedScrollUI {
 
             iCell.OnBecomeVisible(side);
         }
-
-        private void DestroyCell(int index, ScrollerPanelSide side) {
-            var order = GetFirstGreater(index - 1);
-            var cell = currentElements[order];
-            currentElements.RemoveAt(order);
-            cell.go.GetComponent<ICell>().OnBecomeInvisible(side);
-            cell.go.transform.SetParent(pendingDestroyGo.transform);
-            cachedCells.Add(index, cell.go);
-        }
-
-        private void DestroyAllCells() {
-            var total = currentElements.Count;
-            for (var i = 0; i < total; i++) {
-                var cell = currentElements[0];
-                currentElements.RemoveAt(0);
-                cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
-                Destroy(cell.go);
-            }
-        }
-
+        
         private void GenerateAllCells() {
             currentFirstCol = FirstCol;
             currentLastCol = LastCol;
@@ -251,6 +250,25 @@ namespace UnlimitedScrollUI {
             }
         }
 
+        private void DestroyCell(int index, ScrollerPanelSide side) {
+            var order = GetFirstGreater(index - 1);
+            var cell = currentElements[order];
+            currentElements.RemoveAt(order);
+            cell.go.GetComponent<ICell>().OnBecomeInvisible(side);
+            cell.go.transform.SetParent(pendingDestroyGo.transform);
+            cachedCells.Add(index, cell.go);
+        }
+
+        private void DestroyAllCells() {
+            var total = currentElements.Count;
+            for (var i = 0; i < total; i++) {
+                var cell = currentElements[0];
+                currentElements.RemoveAt(0);
+                cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
+                Destroy(cell.go);
+            }
+        }
+        
         private void GenerateRow(int row, bool onTop) {
             var firstCol = currentFirstCol;
             var lastCol = currentLastCol;
@@ -308,7 +326,7 @@ namespace UnlimitedScrollUI {
         }
 
         private void OnScroll(Vector2 position) {
-            if (!Generated) return;
+            if (!Generated || totalCount <= 0) return;
 
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
                 LastRow < currentFirstRow) {
