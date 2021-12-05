@@ -82,21 +82,8 @@
   "pdf": {
     "content": [
       {
-        "files": [
-          "pdf/*"
-        ],
-        "exclude": [
-          "**/toc.yml",
-          "**/toc.md",
-          "_site_pdf/**",
-          "**/bin/**",
-          "**/obj/**"
-        ]
-      },
-      {
         "src": "manual",
         "files": [
-          "*.yml",
           "*.md"
         ]
       },
