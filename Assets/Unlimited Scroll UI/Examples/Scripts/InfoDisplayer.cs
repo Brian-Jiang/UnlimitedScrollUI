@@ -10,8 +10,9 @@ namespace UnlimitedScrollUI.Example {
         public Text visibleDisplay;
         public Text invisibleDisplay;
 
-        public GridUnlimitedScroller gridUnlimitedScroller;
-
+        public GameObject content;
+        
+        private IUnlimitedScroller unlimitedScroller;
         private int totalCell;
 
         public static InfoDisplayer instance;
@@ -22,7 +23,8 @@ namespace UnlimitedScrollUI.Example {
             }
 
             totalCell = 0;
-            confirmBtn.onClick.AddListener(() => gridUnlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));
+            unlimitedScroller = content.GetComponent<IUnlimitedScroller>();
+            confirmBtn.onClick.AddListener(() => unlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));
         }
 
         public void UpdateCellCount(int count) {

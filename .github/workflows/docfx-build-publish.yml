@@ -36,7 +36,7 @@ jobs:
           args: install docfx
         
       - name: DocFX Build
-        working-directory: Tools/DocFx/docfx_project
+        working-directory: Tools/DocFx
         run: docfx docfx.json
         continue-on-error: false
     
@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: _site
-          path: Tools/DocFx/docfx_project/_site
+          path: Tools/DocFx/_site
         
   deploy:
     if: github.event_name == 'push'
