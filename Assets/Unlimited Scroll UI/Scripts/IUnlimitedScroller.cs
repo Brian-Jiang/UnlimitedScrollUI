@@ -1,9 +1,15 @@
 using UnityEngine;
+// ReSharper disable UnusedMemberInSuper.Global
 
 namespace UnlimitedScrollUI
 {
     public interface IUnlimitedScroller
     {
+        /// <summary>
+        /// Whether this scroller has initialized.
+        /// </summary>
+        bool Initialized { get; }
+        
         /// <summary>
         /// Whether this scroller has initialized and generate cells.
         /// </summary>
@@ -67,7 +73,7 @@ namespace UnlimitedScrollUI
         void Generate(GameObject newCell, int newTotalCount);
 
         /// <summary>
-        /// Set a new caching size. If smaller than current size, cache will be
+        /// Set a new caching size. If smaller than current cache size, cache will be
         /// trimmed to the new size
         /// </summary>
         /// <param name="newSize">New cache size.</param>
@@ -79,7 +85,7 @@ namespace UnlimitedScrollUI
         void Clear();
 
         /// <summary>
-        /// Clear all cache. This will not change the cache size.
+        /// Clear all cached cells. This will not change the cache size.
         /// </summary>
         void ClearCache();
     }

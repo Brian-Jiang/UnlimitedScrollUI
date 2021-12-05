@@ -8,10 +8,14 @@ namespace UnlimitedScrollUI.Example {
 
         private IUnlimitedScroller unlimitedScroller;
 
+        public void Generate() {
+            unlimitedScroller.Generate(cell, totalCount);
+        }
+
         private void Start() {
             unlimitedScroller = GetComponent<IUnlimitedScroller>();
             // Wait until the scroller size was set by other layout controllers.
-            StartCoroutine(DelayGenerate());
+            // StartCoroutine(DelayGenerate());
         }
 
         private IEnumerator DelayGenerate() {

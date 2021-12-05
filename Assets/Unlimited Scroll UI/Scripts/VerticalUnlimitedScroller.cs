@@ -5,7 +5,10 @@ using UnityEngine.UI;
 namespace UnlimitedScrollUI {
     public class VerticalUnlimitedScroller : VerticalLayoutGroup, IUnlimitedScroller {
         #region Properties
-        
+
+        /// <inheritdoc cref="IUnlimitedScroller.Initialized"/>
+        public bool Initialized { get; private set; }
+
         /// <inheritdoc cref="IUnlimitedScroller.Generated"/>
         public bool Generated { get; private set; }
         
@@ -105,13 +108,14 @@ namespace UnlimitedScrollUI {
 
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
         public void Generate(GameObject newCell, int newTotalCount) {
-            layoutGroup = GetComponent<LayoutGroup>();
-            Generated = true;
+            if (Generated) return;
+
+            if (!Initialized) Initialize();
             storedElement = newCell;
             totalCount = newTotalCount;
-            scrollRect.onValueChanged.AddListener(OnScroll);
             InitParams();
-
+            Generated = true;
+            
             if (totalCount <= 0) return;
             GenerateAllCells();
         }
@@ -123,33 +127,51 @@ namespace UnlimitedScrollUI {
         
         /// <inheritdoc cref="IUnlimitedScroller.Clear"/>
         public void Clear() {
+            if (!Generated) return;
+            
             DestroyAllCells();
             ClearCache();
             Destroy(pendingDestroyGo);
             Generated = false;
+
+            ContentHeight = 0f;
+            ContentWidth = 0f;
+            layoutGroup.padding.top = offsetPadding.top;
+            layoutGroup.padding.bottom = offsetPadding.bottom;
+            layoutGroup.padding.left = offsetPadding.left;
+            layoutGroup.padding.right = offsetPadding.right;
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.ClearCache"/>
         public void ClearCache() {
             cachedCells.Clear();
         }
-
-        private void InitParams() {
-            var rect = storedElement.GetComponent<RectTransform>().rect;
+        
+        private void Initialize() {
+            layoutGroup = GetComponent<LayoutGroup>();
             scrollerRectTransform = scrollRect.GetComponent<RectTransform>();
             contentTrans = GetComponent<RectTransform>();
-            cellX = rect.width;
-            cellY = rect.height;
-            spacingX = 0f;
-            spacingY = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
-
-            currentElements = new List<Cell>();
+            
             offsetPadding = new Padding() {
                 top = layoutGroup.padding.top,
                 bottom = layoutGroup.padding.bottom,
                 left = layoutGroup.padding.left,
                 right = layoutGroup.padding.right
             };
+            
+            scrollRect.onValueChanged.AddListener(OnScroll);
+
+            Initialized = true;
+        }
+
+        private void InitParams() {
+            var rect = storedElement.GetComponent<RectTransform>().rect;
+            cellX = rect.width;
+            cellY = rect.height;
+            spacingX = 0f;
+            spacingY = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
+
+            currentElements = new List<Cell>();
             ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
             ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
             
