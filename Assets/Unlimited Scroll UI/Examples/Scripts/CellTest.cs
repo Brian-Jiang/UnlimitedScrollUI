@@ -6,7 +6,8 @@ namespace UnlimitedScrollUI.Example {
     public class CellTest : MonoBehaviour {
         public Text text;
         public GameObject popup;
-
+        
+        private InfoDisplay infoDisplay;
         private int index;
         
         public void SetText(int newIndex) {
@@ -22,18 +23,28 @@ namespace UnlimitedScrollUI.Example {
             });
         }
 
+        public void GetInfoDisplayer() {
+            infoDisplay = FindObjectOfType<InfoDisplay>();
+        }
+
         public void ChangeCount(int count) {
-            InfoDisplayer.instance.UpdateCellCount(count);
+            if (!infoDisplay) return;
+            
+            infoDisplay.UpdateCellCount(count);
         }
 
         public void DisplayVisibleText(ScrollerPanelSide side) {
+            if (!infoDisplay) return;
+            
             var sideName = Enum.GetName(typeof(ScrollerPanelSide), side);
-            InfoDisplayer.instance.UpdateVisibleDisplay($"Cell {index} visible from {sideName}.");
+            infoDisplay.UpdateVisibleDisplay($"Cell {index} visible from {sideName}.");
         }
         
         public void DisplayInvisibleText(ScrollerPanelSide side) {
+            if (!infoDisplay) return;
+            
             var sideName = Enum.GetName(typeof(ScrollerPanelSide), side);
-            InfoDisplayer.instance.UpdateInvisibleDisplay($"Cell {index} invisible to {sideName}.");
+            infoDisplay.UpdateInvisibleDisplay($"Cell {index} invisible to {sideName}.");
         }
     }
 }

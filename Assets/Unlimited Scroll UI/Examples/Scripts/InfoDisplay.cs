@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UnlimitedScrollUI.Example {
-    public class InfoDisplayer : MonoBehaviour {
+    public class InfoDisplay : MonoBehaviour {
         public InputField sizeInput;
         public Button confirmBtn;
         
@@ -15,13 +15,7 @@ namespace UnlimitedScrollUI.Example {
         private IUnlimitedScroller unlimitedScroller;
         private int totalCell;
 
-        public static InfoDisplayer instance;
-
         private void Awake() {
-            if (instance == null) {
-                instance = this;
-            }
-
             totalCell = 0;
             unlimitedScroller = content.GetComponent<IUnlimitedScroller>();
             confirmBtn.onClick.AddListener(() => unlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));

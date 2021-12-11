@@ -172,6 +172,9 @@ namespace UnlimitedScrollUI {
             spacingY = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
 
             currentElements = new List<Cell>();
+            contentTrans.anchoredPosition = Vector2.zero;
+            contentTrans.anchorMin = Vector2.up;
+            contentTrans.anchorMax = Vector2.up;
             ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
             ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
             
