@@ -4,6 +4,7 @@ using UnityEngine;
 namespace UnlimitedScrollUI.Example {
     public class ScrollerTest : MonoBehaviour {
         public GameObject cell;
+        public bool autoGenerate;
         public int totalCount = 33;
 
         private IUnlimitedScroller unlimitedScroller;
@@ -15,7 +16,9 @@ namespace UnlimitedScrollUI.Example {
         private void Start() {
             unlimitedScroller = GetComponent<IUnlimitedScroller>();
             // Wait until the scroller size was set by other layout controllers.
-            // StartCoroutine(DelayGenerate());
+            if (autoGenerate) {
+                StartCoroutine(DelayGenerate());
+            }
         }
 
         private IEnumerator DelayGenerate() {
