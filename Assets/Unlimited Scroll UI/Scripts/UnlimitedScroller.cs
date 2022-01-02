@@ -15,6 +15,7 @@ namespace UnlimitedScrollUI {
     internal struct Cell {
         public int number;
         public GameObject go;
+        public ICell iCell;
     }
 
     internal struct Padding {

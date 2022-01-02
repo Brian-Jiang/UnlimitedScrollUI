@@ -13,6 +13,10 @@ namespace UnlimitedScrollUI.Example {
             unlimitedScroller.Generate(cell, totalCount);
         }
 
+        public void SendEvent() {
+            unlimitedScroller.SendEvent(Random.ColorHSV());
+        }
+
         private void Start() {
             unlimitedScroller = GetComponent<IUnlimitedScroller>();
             // Wait until the scroller size was set by other layout controllers.

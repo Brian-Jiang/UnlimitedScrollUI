@@ -31,7 +31,10 @@ namespace UnlimitedScrollUI {
     /// </summary>
     [Serializable]
     public class BecomeInvisibleEvent : UnityEvent<ScrollerPanelSide> { }
-    
+
+    [Serializable]
+    public class ReceiveEvent : UnityEvent<object[]> { }
+
 
     /// <summary>
     /// Regular cell that you can use to quickly setup your cell.
@@ -78,6 +81,8 @@ namespace UnlimitedScrollUI {
         /// </summary>
         public BecomeInvisibleEvent onBecomeInvisible;
 
+        public ReceiveEvent onReceiveEvent;
+
         private CanvasGroup canvasGroup;
         private RectTransform rectTransform;
 
@@ -101,6 +106,13 @@ namespace UnlimitedScrollUI {
         /// <inheritdoc cref="ICell.OnBecomeInvisible"/>
         public void OnBecomeInvisible(ScrollerPanelSide side) {
             onBecomeInvisible.Invoke(side);
+        }
+
+        public void OnReceiveEvent(params object[] args) {
+            onReceiveEvent.Invoke(args);
+            // foreach (var arg in args) {
+            //     print(arg);
+            // }
         }
 
         private IEnumerator PlayAnimIn() {

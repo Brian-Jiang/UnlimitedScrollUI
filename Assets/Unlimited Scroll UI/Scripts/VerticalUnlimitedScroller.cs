@@ -120,6 +120,10 @@ namespace UnlimitedScrollUI {
             GenerateAllCells();
         }
         
+        public void SendEvent(params object[] args) {
+            currentElements.ForEach(cell => cell.iCell.OnReceiveEvent(args));
+        }
+        
         /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>
         public void SetCacheSize(uint newSize) {
             cachedCells.SetCapacity(newSize);
@@ -221,7 +225,7 @@ namespace UnlimitedScrollUI {
             
             var order = GetFirstGreater(index);
             instance.GetComponent<Transform>().SetSiblingIndex(order);
-            var cell = new Cell() { go = instance, number = index };
+            var cell = new Cell { go = instance, number = index, iCell = iCell };
             currentElements.Insert(order, cell);
 
             iCell.OnBecomeVisible(side);

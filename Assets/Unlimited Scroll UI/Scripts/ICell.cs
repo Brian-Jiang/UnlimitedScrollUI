@@ -22,5 +22,7 @@ namespace UnlimitedScrollUI {
         /// <param name="side">The side that this cell become invisible. For example, <c>side = ScrollerPanelSide.Right</c> means
         /// that the player is dragging the panel to right so that this cell disappears to right.</param>
         void OnBecomeInvisible(ScrollerPanelSide side);
+
+        void OnReceiveEvent(params object[] args);
     }
 }
