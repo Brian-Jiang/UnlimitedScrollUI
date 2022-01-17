@@ -12,6 +12,10 @@ namespace UnlimitedScrollUI {
         Right
     }
 
+    public enum Alignment {
+        Left, Center, Right
+    }
+
     internal struct Cell {
         public int number;
         public GameObject go;
