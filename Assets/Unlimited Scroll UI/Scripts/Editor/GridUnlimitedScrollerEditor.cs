@@ -7,6 +7,7 @@ namespace UnlimitedScrollUI.Editor {
     public class GridUnlimitedScrollerEditor : GridLayoutGroupEditor {
         private SerializedProperty matchContentWidth;
         private SerializedProperty cellPerRow;
+        private SerializedProperty horizontalAlignment;
         private SerializedProperty cacheSize;
         private SerializedProperty scrollRect;
 
@@ -15,6 +16,7 @@ namespace UnlimitedScrollUI.Editor {
 
             matchContentWidth = serializedObject.FindProperty("matchContentWidth");
             cellPerRow = serializedObject.FindProperty("cellPerRow");
+            horizontalAlignment = serializedObject.FindProperty("horizontalAlignment");
             cacheSize = serializedObject.FindProperty("cacheSize");
             scrollRect = serializedObject.FindProperty("scrollRect");
         }
@@ -29,6 +31,7 @@ namespace UnlimitedScrollUI.Editor {
                 EditorGUILayout.PropertyField(cellPerRow, true);
             }
 
+            EditorGUILayout.PropertyField(horizontalAlignment, true);
             EditorGUILayout.PropertyField(cacheSize, true);
             EditorGUILayout.PropertyField(scrollRect, true);
 

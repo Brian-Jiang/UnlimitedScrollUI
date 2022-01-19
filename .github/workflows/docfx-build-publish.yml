@@ -33,7 +33,7 @@ jobs:
       - name: Setup DocFX
         uses: crazy-max/ghaction-chocolatey@v1
         with:
-          args: install docfx
+          args: install docfx --ignore-checksums
         
       - name: DocFX Build
         working-directory: Tools/DocFx

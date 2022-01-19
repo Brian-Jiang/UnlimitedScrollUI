@@ -54,10 +54,10 @@ namespace UnlimitedScrollUI {
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.ViewportHeight"/>
-        public float ViewportHeight => scrollerRectTransform.rect.height;
+        public float ViewportHeight => viewportRectTransform.rect.height;
 
         /// <inheritdoc cref="IUnlimitedScroller.ViewportWidth"/>
-        public float ViewportWidth => scrollerRectTransform.rect.width;
+        public float ViewportWidth => viewportRectTransform.rect.width;
 
         /// <inheritdoc cref="IUnlimitedScroller.CellPerRow"/>
         public int CellPerRow => 1;
@@ -84,7 +84,7 @@ namespace UnlimitedScrollUI {
         
         private RectTransform contentTrans;
         private LayoutGroup layoutGroup;
-        private RectTransform scrollerRectTransform;
+        private RectTransform viewportRectTransform;
         
         private float cellX;
         private float cellY;
@@ -93,8 +93,8 @@ namespace UnlimitedScrollUI {
         private Padding offsetPadding;
 
         private int totalCount;
-        private GameObject storedElement;
-        private List<Cell> currentElements;
+        private GameObject cellPrefab;
+        private List<Cell> currentCells;
         
         private int currentFirstRow;
         private int currentLastRow;
@@ -111,7 +111,7 @@ namespace UnlimitedScrollUI {
             if (Generated) return;
 
             if (!Initialized) Initialize();
-            storedElement = newCell;
+            cellPrefab = newCell;
             totalCount = newTotalCount;
             InitParams();
             Generated = true;
@@ -149,10 +149,10 @@ namespace UnlimitedScrollUI {
         
         private void Initialize() {
             layoutGroup = GetComponent<LayoutGroup>();
-            scrollerRectTransform = scrollRect.GetComponent<RectTransform>();
+            viewportRectTransform = scrollRect.viewport;
             contentTrans = GetComponent<RectTransform>();
             
-            offsetPadding = new Padding() {
+            offsetPadding = new Padding {
                 top = layoutGroup.padding.top,
                 bottom = layoutGroup.padding.bottom,
                 left = layoutGroup.padding.left,
@@ -165,13 +165,13 @@ namespace UnlimitedScrollUI {
         }
 
         private void InitParams() {
-            var rect = storedElement.GetComponent<RectTransform>().rect;
+            var rect = cellPrefab.GetComponent<RectTransform>().rect;
             cellX = rect.width;
             cellY = rect.height;
             spacingX = 0f;
             spacingY = ((HorizontalOrVerticalLayoutGroup)layoutGroup).spacing;
 
-            currentElements = new List<Cell>();
+            currentCells = new List<Cell>();
             contentTrans.anchoredPosition = Vector2.zero;
             contentTrans.anchorMin = Vector2.up;
             contentTrans.anchorMax = Vector2.up;
@@ -191,10 +191,10 @@ namespace UnlimitedScrollUI {
 
         private int GetFirstGreater(int index) {
             var start = 0;
-            var end = currentElements.Count;
+            var end = currentCells.Count;
             while (start != end) {
                 var middle = start + (end - start) / 2;
-                if (currentElements[middle].number <= index) {
+                if (currentCells[middle].number <= index) {
                     start = middle + 1;
                 } else {
                     end = middle;
@@ -212,8 +212,8 @@ namespace UnlimitedScrollUI {
                 
                 iCell = instance.GetComponent<ICell>();
             } else {
-                instance = Instantiate(storedElement, contentTrans);
-                instance.name = storedElement.name + "_" + index;
+                instance = Instantiate(cellPrefab, contentTrans);
+                instance.name = cellPrefab.name + "_" + index;
                 
                 iCell = instance.GetComponent<ICell>();
                 iCell.OnGenerated(index);
@@ -222,25 +222,25 @@ namespace UnlimitedScrollUI {
             var order = GetFirstGreater(index);
             instance.GetComponent<Transform>().SetSiblingIndex(order);
             var cell = new Cell() { go = instance, number = index };
-            currentElements.Insert(order, cell);
+            currentCells.Insert(order, cell);
 
             iCell.OnBecomeVisible(side);
         }
 
         private void DestroyCell(int index, ScrollerPanelSide side) {
             var order = GetFirstGreater(index - 1);
-            var cell = currentElements[order];
-            currentElements.RemoveAt(order);
+            var cell = currentCells[order];
+            currentCells.RemoveAt(order);
             cell.go.GetComponent<ICell>().OnBecomeInvisible(side);
             cell.go.transform.SetParent(pendingDestroyGo.transform);
             cachedCells.Add(index, cell.go);
         }
 
         private void DestroyAllCells() {
-            var total = currentElements.Count;
+            var total = currentCells.Count;
             for (var i = 0; i < total; i++) {
-                var cell = currentElements[0];
-                currentElements.RemoveAt(0);
+                var cell = currentCells[0];
+                currentCells.RemoveAt(0);
                 cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
                 Destroy(cell.go);
             }
