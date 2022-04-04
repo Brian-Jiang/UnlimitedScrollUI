@@ -119,6 +119,10 @@ namespace UnlimitedScrollUI {
             if (totalCount <= 0) return;
             GenerateAllCells();
         }
+
+        public void JumpTo(uint index, JumpToMethod method) {
+            
+        }
         
         /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>
         public void SetCacheSize(uint newSize) {

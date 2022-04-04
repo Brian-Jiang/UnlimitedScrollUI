@@ -24,4 +24,8 @@ namespace UnlimitedScrollUI {
     internal struct Padding {
         public int top, bottom, left, right;
     }
+
+    public enum JumpToMethod {
+        OnScreen, Center
+    }
 }

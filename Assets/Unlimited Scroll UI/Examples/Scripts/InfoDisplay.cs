@@ -18,7 +18,8 @@ namespace UnlimitedScrollUI.Example {
         private void Awake() {
             totalCell = 0;
             unlimitedScroller = content.GetComponent<IUnlimitedScroller>();
-            confirmBtn.onClick.AddListener(() => unlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));
+            // confirmBtn.onClick.AddListener(() => unlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));
+            confirmBtn.onClick.AddListener(() => unlimitedScroller.JumpTo(uint.Parse(sizeInput.text), JumpToMethod.OnScreen));
         }
 
         public void UpdateCellCount(int count) {
