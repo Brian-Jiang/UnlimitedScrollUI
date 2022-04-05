@@ -73,6 +73,13 @@ namespace UnlimitedScrollUI
         void Generate(GameObject newCell, int newTotalCount);
 
         /// <summary>
+        /// Call this function to jump to cell at index.
+        /// </summary>
+        /// <param name="index">The index of the cell.</param>
+        /// <param name="method">The jump method.</param>
+        void JumpTo(uint index, JumpToMethod method);
+
+        /// <summary>
         /// Set a new caching size. If smaller than current cache size, cache will be
         /// trimmed to the new size
         /// </summary>

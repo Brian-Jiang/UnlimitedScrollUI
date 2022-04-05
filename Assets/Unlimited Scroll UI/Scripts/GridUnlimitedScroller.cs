@@ -146,6 +146,72 @@ namespace UnlimitedScrollUI {
             GenerateAllCells();
         }
 
+        public void JumpTo(uint index, JumpToMethod method) {
+            if (index >= totalCount) return;
+            
+            var cellRowCount = index / CellPerRow;
+            var cellColCount = index % CellPerRow;
+            float verticalPosition, horizontalPosition;
+            switch (method) {
+                case JumpToMethod.OnScreen:
+                    if (cellRowCount >= FirstRow && cellRowCount <= LastRow && cellColCount >= FirstCol &&
+                        cellColCount <= LastCol) return;
+
+                    if (cellRowCount > LastRow) {
+                        verticalPosition =
+                            (offsetPadding.bottom + (RowCount - cellRowCount - 1) * cellSize.y +
+                             (RowCount - cellRowCount - 1) * spacingY) /
+                            (ContentHeight - ViewportHeight);
+                    } else {
+                        verticalPosition =
+                            (offsetPadding.bottom + (RowCount - cellRowCount) * cellSize.y +
+                                (RowCount - cellRowCount - 1) * spacingY - ViewportHeight) /
+                            (ContentHeight - ViewportHeight);
+                    }
+
+                    if (cellColCount > LastCol) {
+                        horizontalPosition =
+                            (offsetPadding.left + (cellColCount + 1) * cellSize.x + cellColCount * spacingX -
+                             ViewportWidth) / (ContentWidth - ViewportWidth);
+                    } else {
+                        horizontalPosition =
+                            (offsetPadding.left + (cellColCount) * cellSize.x + cellColCount * spacingX) /
+                            (ContentWidth - ViewportWidth);
+                    }
+
+                    if (ContentHeight > ViewportHeight && !(cellRowCount >= FirstRow && cellRowCount <= LastRow)) {
+                        scrollRect.verticalNormalizedPosition = verticalPosition;
+                    }
+
+                    if (ContentWidth > ViewportWidth && !(cellColCount >= FirstCol && cellColCount <= LastCol)) {
+                        scrollRect.horizontalNormalizedPosition = horizontalPosition;
+                    }
+
+                    return;
+                case JumpToMethod.Center:
+                    verticalPosition =
+                        (offsetPadding.bottom + (RowCount - cellRowCount - 0.5f) * cellSize.y +
+                            (RowCount - cellRowCount - 1) * spacingY - ViewportHeight / 2f) /
+                        (ContentHeight - ViewportHeight);
+
+                    horizontalPosition =
+                        (offsetPadding.left + (cellColCount + 0.5f) * cellSize.x + cellColCount * spacingX -
+                         ViewportWidth / 2f) / (ContentWidth - ViewportWidth);
+
+                    if (ContentHeight > ViewportHeight) {
+                        scrollRect.verticalNormalizedPosition = verticalPosition;
+                    }
+
+                    if (ContentWidth > ViewportWidth) {
+                        scrollRect.horizontalNormalizedPosition = horizontalPosition;
+                    }
+
+                    return;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(method), method, null);
+            }
+        }
+
         /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>
         public void SetCacheSize(uint newSize) {
             cachedCells.SetCapacity(newSize);

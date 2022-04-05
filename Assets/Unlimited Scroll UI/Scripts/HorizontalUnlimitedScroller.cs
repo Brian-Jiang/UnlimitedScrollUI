@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -118,6 +119,46 @@ namespace UnlimitedScrollUI {
             
             if (totalCount <= 0) return;
             GenerateAllCells();
+        }
+        
+        public void JumpTo(uint index, JumpToMethod method) {
+            if (index >= totalCount) return;
+            
+            var cellColCount = index % CellPerRow;
+            float horizontalPosition;
+            switch (method) {
+                case JumpToMethod.OnScreen:
+                    if (cellColCount >= FirstCol &&
+                        cellColCount <= LastCol) return;
+
+                    if (cellColCount > LastCol) {
+                        horizontalPosition =
+                            (offsetPadding.left + (cellColCount + 1) * cellX + cellColCount * spacingX -
+                             ViewportWidth) / (ContentWidth - ViewportWidth);
+                    } else {
+                        horizontalPosition =
+                            (offsetPadding.left + (cellColCount) * cellX + cellColCount * spacingX) /
+                            (ContentWidth - ViewportWidth);
+                    }
+
+                    if (ContentWidth > ViewportWidth && !(cellColCount >= FirstCol && cellColCount <= LastCol)) {
+                        scrollRect.horizontalNormalizedPosition = horizontalPosition;
+                    }
+
+                    return;
+                case JumpToMethod.Center:
+                    horizontalPosition =
+                        (offsetPadding.left + (cellColCount + 0.5f) * cellX + cellColCount * spacingX -
+                         ViewportWidth / 2f) / (ContentWidth - ViewportWidth);
+
+                    if (ContentWidth > ViewportWidth) {
+                        scrollRect.horizontalNormalizedPosition = horizontalPosition;
+                    }
+
+                    return;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(method), method, null);
+            }
         }
         
         /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>

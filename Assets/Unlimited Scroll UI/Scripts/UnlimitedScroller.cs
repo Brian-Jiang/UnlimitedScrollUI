@@ -24,4 +24,19 @@ namespace UnlimitedScrollUI {
     internal struct Padding {
         public int top, bottom, left, right;
     }
+
+    /// <summary>
+    /// Jump to cell method.
+    /// </summary>
+    public enum JumpToMethod {
+        /// <summary>
+        /// Scroll until the cell is visible.
+        /// </summary>
+        OnScreen,
+        
+        /// <summary>
+        /// Scroll until the cell is on the center.
+        /// </summary>
+        Center
+    }
 }
