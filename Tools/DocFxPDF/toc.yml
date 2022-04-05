@@ -1,0 +1,5 @@
+- name: Manual
+  href: manual/
+  topicHref: manual/intro.md
+- name: API Documentation
+  href: api/
