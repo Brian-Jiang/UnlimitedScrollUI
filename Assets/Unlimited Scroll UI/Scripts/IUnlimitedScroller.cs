@@ -72,6 +72,11 @@ namespace UnlimitedScrollUI
         /// <param name="newTotalCount">The total cell count you want to generate.</param>
         void Generate(GameObject newCell, int newTotalCount);
 
+        /// <summary>
+        /// Call this function to jump to cell at index.
+        /// </summary>
+        /// <param name="index">The index of the cell.</param>
+        /// <param name="method">The jump method.</param>
         void JumpTo(uint index, JumpToMethod method);
 
         /// <summary>

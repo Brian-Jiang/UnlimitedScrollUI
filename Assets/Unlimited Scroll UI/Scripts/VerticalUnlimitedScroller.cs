@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -121,7 +122,45 @@ namespace UnlimitedScrollUI {
         }
 
         public void JumpTo(uint index, JumpToMethod method) {
+            if (index >= totalCount) return;
             
+            var cellRowCount = index / CellPerRow;
+            float verticalPosition;
+            switch (method) {
+                case JumpToMethod.OnScreen:
+                    if (cellRowCount >= FirstRow && cellRowCount <= LastRow) return;
+
+                    if (cellRowCount > LastRow) {
+                        verticalPosition =
+                            (offsetPadding.bottom + (RowCount - cellRowCount - 1) * cellY +
+                             (RowCount - cellRowCount - 1) * spacingY) /
+                            (ContentHeight - ViewportHeight);
+                    } else {
+                        verticalPosition =
+                            (offsetPadding.bottom + (RowCount - cellRowCount) * cellY +
+                                (RowCount - cellRowCount - 1) * spacingY - ViewportHeight) /
+                            (ContentHeight - ViewportHeight);
+                    }
+
+                    if (ContentHeight > ViewportHeight && !(cellRowCount >= FirstRow && cellRowCount <= LastRow)) {
+                        scrollRect.verticalNormalizedPosition = verticalPosition;
+                    }
+
+                    return;
+                case JumpToMethod.Center:
+                    verticalPosition =
+                        (offsetPadding.bottom + (RowCount - cellRowCount - 0.5f) * cellY +
+                            (RowCount - cellRowCount - 1) * spacingY - ViewportHeight / 2f) /
+                        (ContentHeight - ViewportHeight);
+
+                    if (ContentHeight > ViewportHeight) {
+                        scrollRect.verticalNormalizedPosition = verticalPosition;
+                    }
+
+                    return;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(method), method, null);
+            }
         }
         
         /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>

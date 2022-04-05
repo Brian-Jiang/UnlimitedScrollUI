@@ -147,25 +147,25 @@ namespace UnlimitedScrollUI {
         }
 
         public void JumpTo(uint index, JumpToMethod method) {
+            if (index >= totalCount) return;
+            
             var cellRowCount = index / CellPerRow;
             var cellColCount = index % CellPerRow;
             float verticalPosition, horizontalPosition;
             switch (method) {
                 case JumpToMethod.OnScreen:
-                    print($"{cellRowCount}, {FirstRow}, {LastRow}");
-                    print($"{cellColCount}, {FirstCol}, {LastCol}");
-                    if (cellRowCount >= FirstRow && cellRowCount <= LastRow && cellColCount >= FirstCol && cellColCount <= LastCol) return;
-                    // if (cellColCount >= FirstCol && cellColCount <= LastCol) return;
+                    if (cellRowCount >= FirstRow && cellRowCount <= LastRow && cellColCount >= FirstCol &&
+                        cellColCount <= LastCol) return;
 
                     if (cellRowCount > LastRow) {
                         verticalPosition =
                             (offsetPadding.bottom + (RowCount - cellRowCount - 1) * cellSize.y +
-                                (RowCount - cellRowCount - 1) * spacingY) /
+                             (RowCount - cellRowCount - 1) * spacingY) /
                             (ContentHeight - ViewportHeight);
                     } else {
                         verticalPosition =
                             (offsetPadding.bottom + (RowCount - cellRowCount) * cellSize.y +
-                             (RowCount - cellRowCount - 1) * spacingY - ViewportHeight) /
+                                (RowCount - cellRowCount - 1) * spacingY - ViewportHeight) /
                             (ContentHeight - ViewportHeight);
                     }
 
@@ -175,9 +175,10 @@ namespace UnlimitedScrollUI {
                              ViewportWidth) / (ContentWidth - ViewportWidth);
                     } else {
                         horizontalPosition =
-                            (offsetPadding.left + (cellColCount) * cellSize.x + cellColCount * spacingX) / (ContentWidth - ViewportWidth);
+                            (offsetPadding.left + (cellColCount) * cellSize.x + cellColCount * spacingX) /
+                            (ContentWidth - ViewportWidth);
                     }
-                    
+
                     if (ContentHeight > ViewportHeight && !(cellRowCount >= FirstRow && cellRowCount <= LastRow)) {
                         scrollRect.verticalNormalizedPosition = verticalPosition;
                     }
@@ -185,32 +186,29 @@ namespace UnlimitedScrollUI {
                     if (ContentWidth > ViewportWidth && !(cellColCount >= FirstCol && cellColCount <= LastCol)) {
                         scrollRect.horizontalNormalizedPosition = horizontalPosition;
                     }
+
                     return;
-                    // var scrollDistance = (cellRowCount - LastCol) * cellSize.y;
-                    // verticalPosition = 0f;
-                    // horizontalPosition = 0f;
-                    break;
                 case JumpToMethod.Center:
                     verticalPosition =
                         (offsetPadding.bottom + (RowCount - cellRowCount - 0.5f) * cellSize.y +
                             (RowCount - cellRowCount - 1) * spacingY - ViewportHeight / 2f) /
                         (ContentHeight - ViewportHeight);
-                    
+
                     horizontalPosition =
                         (offsetPadding.left + (cellColCount + 0.5f) * cellSize.x + cellColCount * spacingX -
                          ViewportWidth / 2f) / (ContentWidth - ViewportWidth);
-                    
-                    break;
+
+                    if (ContentHeight > ViewportHeight) {
+                        scrollRect.verticalNormalizedPosition = verticalPosition;
+                    }
+
+                    if (ContentWidth > ViewportWidth) {
+                        scrollRect.horizontalNormalizedPosition = horizontalPosition;
+                    }
+
+                    return;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(method), method, null);
-            }
-
-            if (ContentHeight > ViewportHeight) {
-                scrollRect.verticalNormalizedPosition = verticalPosition;
-            }
-
-            if (ContentWidth > ViewportWidth) {
-                scrollRect.horizontalNormalizedPosition = horizontalPosition;
             }
         }
 

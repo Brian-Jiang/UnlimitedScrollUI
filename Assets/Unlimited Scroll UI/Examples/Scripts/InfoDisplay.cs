@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UnlimitedScrollUI.Example {
     public class InfoDisplay : MonoBehaviour {
         public InputField sizeInput;
-        public Button confirmBtn;
+        [FormerlySerializedAs("confirmBtn")]
+        public Button sizeConfirmBtn;
+
+        public InputField jumpInput;
+        public Button centerJumpConfirmBtn;
+        public Button onScreenJumpConfirmBtn;
         
         public Text cellCount;
         public Text visibleDisplay;
@@ -18,8 +24,9 @@ namespace UnlimitedScrollUI.Example {
         private void Awake() {
             totalCell = 0;
             unlimitedScroller = content.GetComponent<IUnlimitedScroller>();
-            // confirmBtn.onClick.AddListener(() => unlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));
-            confirmBtn.onClick.AddListener(() => unlimitedScroller.JumpTo(uint.Parse(sizeInput.text), JumpToMethod.OnScreen));
+            sizeConfirmBtn.onClick.AddListener(() => unlimitedScroller.SetCacheSize(uint.Parse(sizeInput.text)));
+            centerJumpConfirmBtn.onClick.AddListener(() => unlimitedScroller.JumpTo(uint.Parse(jumpInput.text), JumpToMethod.Center));
+            onScreenJumpConfirmBtn.onClick.AddListener(() => unlimitedScroller.JumpTo(uint.Parse(jumpInput.text), JumpToMethod.OnScreen));
         }
 
         public void UpdateCellCount(int count) {
