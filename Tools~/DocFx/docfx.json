@@ -5,11 +5,9 @@
         {
           "src": "../..",
           "files": [
-            "Assets/**/*.cs"
+            "Runtime/**/*.cs",
+            "Editor/**/*.cs"
           ],
-          "exclude": [
-            "Assets/Plugins/**"
-          ]
         }
       ],
       "dest": "api",
