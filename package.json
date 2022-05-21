@@ -1,0 +1,21 @@
+﻿{
+  "name": "com.xiaojiang.unlimitedscroller",
+  "version": "1.4.1",
+  "unity": "2019.3",
+  "displayName": "Unlimited Scroller",
+  "author": {
+    "name": "Xiao Jiang",
+    "email": "bjjx1999@live.com"
+  },
+  "license": "See LICENSE.md file",
+  "keywords": ["UI", "Scroll", "Scroller", "Layout"],
+  "description": "A plugin in Unity that let you easily create scroll views with unlimited items.",
+  "documentationUrl": "https://brian-jiang.github.io/UnlimitedScrollUI/",
+  "samples": [
+    {
+      "displayName": "Scroller Samples",
+      "description": "Vertical, horizontal and grid scroller samples.",
+      "path": "Samples~/ScrollerSamples"
+    }
+  ]
+}
