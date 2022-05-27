@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 // ReSharper disable UnusedMemberInSuper.Global
 
@@ -70,7 +71,8 @@ namespace UnlimitedScrollUI
         /// </summary>
         /// <param name="newCell">The cell game object.</param>
         /// <param name="newTotalCount">The total cell count you want to generate.</param>
-        void Generate(GameObject newCell, int newTotalCount);
+        /// <param name="onInit"></param>
+        void Generate(GameObject newCell, int newTotalCount, Action<int, ICell> onInit);
 
         /// <summary>
         /// Call this function to jump to cell at index.

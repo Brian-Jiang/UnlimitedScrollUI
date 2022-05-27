@@ -82,9 +82,9 @@ namespace UnlimitedScrollUI {
         private RectTransform rectTransform;
 
         /// <inheritdoc cref="ICell.OnGenerated"/>
-        public void OnGenerated(int index) {
-            onGenerated.Invoke(index);
-        }
+        // public void OnGenerated(int index) {
+        //     onGenerated.Invoke(index);
+        // }
 
         /// <inheritdoc cref="ICell.OnBecomeVisible"/>
         public void OnBecomeVisible(ScrollerPanelSide side) {
