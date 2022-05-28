@@ -127,18 +127,21 @@ namespace UnlimitedScrollUI {
         private int currentFirstCol;
         private int currentLastCol;
 
+        private Action<int, ICell> onCellGenerate;
+
         private GameObject pendingDestroyGo;
         private LRUCache<int, GameObject> cachedCells;
 
         #endregion
 
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
-        public void Generate(GameObject newCell, int newTotalCount) {
+        public void Generate(GameObject newCell, int newTotalCount, Action<int, ICell> onGenerate) {
             if (Generated) return;
 
             if (!Initialized) Initialize();
             cellPrefab = newCell;
             totalCount = newTotalCount;
+            onCellGenerate = onGenerate;
             InitParams();
             Generated = true;
             
@@ -333,7 +336,7 @@ namespace UnlimitedScrollUI {
                 instance.name = cellPrefab.name + "_" + index;
                 
                 iCell = instance.GetComponent<ICell>();
-                iCell.OnGenerated(index);
+                onCellGenerate?.Invoke(index, iCell);
             }
 
             var order = GetFirstGreater(index);

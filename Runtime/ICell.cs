@@ -2,13 +2,7 @@ namespace UnlimitedScrollUI {
     /// <summary>
     /// <para>If you want to have your own script for cell, implement this interface.</para>
     /// </summary>
-    public interface ICell { 
-        /// <summary>
-        /// Called when the cell is generated. This is currently same as <c>OnBecomeVisible</c>.
-        /// </summary>
-        /// <param name="index">The index of the cell</param>
-        void OnGenerated(int index);
-        
+    public interface ICell {
         /// <summary>
         /// Called when the cell become visible.
         /// </summary>

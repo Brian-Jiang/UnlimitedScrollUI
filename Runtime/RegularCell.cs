@@ -81,11 +81,6 @@ namespace UnlimitedScrollUI {
         private CanvasGroup canvasGroup;
         private RectTransform rectTransform;
 
-        /// <inheritdoc cref="ICell.OnGenerated"/>
-        public void OnGenerated(int index) {
-            onGenerated.Invoke(index);
-        }
-
         /// <inheritdoc cref="ICell.OnBecomeVisible"/>
         public void OnBecomeVisible(ScrollerPanelSide side) {
             onBecomeVisible.Invoke(side);
