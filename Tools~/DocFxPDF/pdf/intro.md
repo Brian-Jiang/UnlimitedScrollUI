@@ -1,5 +1,5 @@
 # Unlimited Scroll UI
-#### version 1.4.0
+#### version 1.5.0
 
 ## Summary
 A plugin in Unity that let you easily create scroll views with unlimited items. See in [asset store](http://u3d.as/2z2a).
