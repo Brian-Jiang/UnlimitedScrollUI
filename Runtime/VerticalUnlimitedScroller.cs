@@ -106,7 +106,9 @@ namespace UnlimitedScrollUI {
         
         private GameObject pendingDestroyGo;
         private LRUCache<int, GameObject> cachedCells;
-        
+
+        private Vector2 lastViewportSize;
+
         #endregion
 
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
@@ -229,6 +231,7 @@ namespace UnlimitedScrollUI {
             pendingDestroyGo.SetActive(false);
 
             cachedCells = new LRUCache<int, GameObject>((_, go) => Destroy(go), cacheSize);
+            lastViewportSize = viewportRectTransform.rect.size;
         }
 
         private int GetCellIndex(int row, int col) {
@@ -298,14 +301,7 @@ namespace UnlimitedScrollUI {
             currentFirstRow = FirstRow;
             currentLastRow = LastRow;
 
-            layoutGroup.padding.left = offsetPadding.left + (currentFirstCol == 0
-                ? 0
-                : (int)(currentFirstCol * cellX + (currentFirstCol - 1) * spacingX));
-            layoutGroup.padding.right = offsetPadding.right + (int)((CellPerRow - LastCol - 1) * (cellX + spacingX));
-            layoutGroup.padding.top = offsetPadding.top + (currentFirstRow == 0
-                ? 0
-                : (int)(currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
-            layoutGroup.padding.bottom = offsetPadding.bottom + (int)((RowCount - LastRow - 1) * (cellY + spacingY));
+            UpdatePadding();
             for (var r = currentFirstRow; r <= currentLastRow; ++r) {
                 for (var c = currentFirstCol; c <= currentLastCol; ++c) {
                     var index = GetCellIndex(r, c);
@@ -324,9 +320,6 @@ namespace UnlimitedScrollUI {
             for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
                 GenerateCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
-
-            if (onTop) layoutGroup.padding.top -= (int)(cellY + spacingY);
-            else layoutGroup.padding.bottom -= (int)(cellY + spacingY);
         }
 
         private void GenerateCol(int col, bool onLeft) {
@@ -338,9 +331,6 @@ namespace UnlimitedScrollUI {
                 if (index >= totalCount) continue;
                 GenerateCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
-
-            if (onLeft) layoutGroup.padding.left -= (int)(cellX + spacingX);
-            else layoutGroup.padding.right -= (int)(cellX + spacingX);
         }
 
         private void DestroyRow(int row, bool onTop) {
@@ -352,9 +342,6 @@ namespace UnlimitedScrollUI {
             for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
                 DestroyCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
-
-            if (onTop) layoutGroup.padding.top += (int)(cellY + spacingY);
-            else layoutGroup.padding.bottom += (int)(cellY + spacingY);
         }
 
         private void DestroyCol(int col, bool onLeft) {
@@ -366,12 +353,38 @@ namespace UnlimitedScrollUI {
                 if (index >= totalCount) continue;
                 DestroyCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
             }
+        }
 
-            if (onLeft) layoutGroup.padding.left += (int)(cellX + spacingX);
-            else layoutGroup.padding.right += (int)(cellX + spacingX);
+        // Padding is always derived from the visible range so that full rebuilds and row-by-row updates agree.
+        private void UpdatePadding() {
+            layoutGroup.padding.left = offsetPadding.left + Mathf.RoundToInt(currentFirstCol * (cellX + spacingX));
+            layoutGroup.padding.right = offsetPadding.right +
+                                        Mathf.RoundToInt((CellPerRow - currentLastCol - 1) * (cellX + spacingX));
+            layoutGroup.padding.top = offsetPadding.top + Mathf.RoundToInt(currentFirstRow * (cellY + spacingY));
+            layoutGroup.padding.bottom = offsetPadding.bottom +
+                                         Mathf.RoundToInt((RowCount - currentLastRow - 1) * (cellY + spacingY));
+            SetDirty();
+        }
+
+        private void LateUpdate() {
+            if (!Generated) return;
+
+            var viewportSize = viewportRectTransform.rect.size;
+            if (viewportSize == lastViewportSize) return;
+
+            lastViewportSize = viewportSize;
+            OnViewportResized();
+        }
+
+        private void OnViewportResized() {
+            if (totalCount > 0) UpdateVisibleCells();
         }
 
         private void OnScroll(Vector2 position) {
+            UpdateVisibleCells();
+        }
+
+        private void UpdateVisibleCells() {
             if (!Generated || totalCount <= 0) return;
 
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
@@ -453,6 +466,8 @@ namespace UnlimitedScrollUI {
 
                 currentLastRow = LastRow;
             }
+
+            UpdatePadding();
         }
     }
 }
