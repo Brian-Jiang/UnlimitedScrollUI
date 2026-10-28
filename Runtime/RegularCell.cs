@@ -63,9 +63,12 @@ namespace UnlimitedScrollUI {
         public float scaleFrom;
 
         /// <summary>
-        /// Will be called when the cell generate. Add listeners that take an int parameter which represent the index
-        /// of that cell.
+        /// Deprecated. Scrollers have not invoked this since 1.5.0. Initialize cells in the <c>onGenerate</c>
+        /// callback passed to <see cref="IUnlimitedScroller.Generate"/> instead.
         /// </summary>
+        [Obsolete("Not invoked by scrollers since 1.5.0. Initialize cells in the onGenerate callback passed to " +
+                  "IUnlimitedScroller.Generate.")]
+        [Tooltip("Deprecated: not invoked by scrollers. Use the onGenerate callback of IUnlimitedScroller.Generate.")]
         public GenerateEvent onGenerated;
         
         /// <summary>
@@ -80,17 +83,40 @@ namespace UnlimitedScrollUI {
 
         private CanvasGroup canvasGroup;
         private RectTransform rectTransform;
+        private Coroutine animCoroutine;
+
+        private void Awake() {
+            canvasGroup = GetComponent<CanvasGroup>();
+            rectTransform = GetComponent<RectTransform>();
+        }
+
+        private void OnDisable() {
+            // Unity stops coroutines on disable (e.g. the cell moving into the inactive cache), so don't leave the
+            // cell half animated.
+            if (animCoroutine == null) return;
+
+            animCoroutine = null;
+            ApplyAnim(1f);
+        }
 
         /// <inheritdoc cref="ICell.OnBecomeVisible"/>
         public void OnBecomeVisible(ScrollerPanelSide side) {
             onBecomeVisible.Invoke(side);
-            
-            if (animationType == AnimationType.None) return;
 
-            canvasGroup = GetComponent<CanvasGroup>();
-            rectTransform = GetComponent<RectTransform>();
-            canvasGroup.alpha = animationType == AnimationType.Scale ? 1f : fadeFrom;
-            StartCoroutine(PlayAnimIn());
+            // An inactive cell can't run the animation; OnDisable already left it in its final state.
+            if (animationType == AnimationType.None || !isActiveAndEnabled) return;
+
+            if (animCoroutine != null) {
+                StopCoroutine(animCoroutine);
+                animCoroutine = null;
+            }
+
+            if (animInterval <= 0f) {
+                ApplyAnim(1f);
+                return;
+            }
+
+            animCoroutine = StartCoroutine(PlayAnimIn());
         }
 
         /// <inheritdoc cref="ICell.OnBecomeInvisible"/>
@@ -100,32 +126,34 @@ namespace UnlimitedScrollUI {
 
         private IEnumerator PlayAnimIn() {
             var t = 0f;
-            var willFinish = false;
-            while (!willFinish) {
-                t = Mathf.MoveTowards(t, 1f, Time.deltaTime / animInterval);
-                if (Mathf.Approximately(t, 1f)) {
-                    t = 1f;
-                    willFinish = true;
-                }
-
-                switch (animationType) {
-                    case AnimationType.None:
-                        break;
-                    case AnimationType.Fade:
-                        canvasGroup.alpha = Mathf.Lerp(fadeFrom, 1f, t);
-                        break;
-                    case AnimationType.Scale:
-                        rectTransform.localScale = Vector3.one * Mathf.Lerp(scaleFrom, 1f, t);
-                        break;
-                    case AnimationType.FadeAndScale:
-                        canvasGroup.alpha = Mathf.Lerp(fadeFrom, 1f, t);
-                        rectTransform.localScale = Vector3.one * Mathf.Lerp(scaleFrom, 1f, t);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
+            ApplyAnim(t);
+            while (t < 1f) {
                 yield return null;
+
+                // Unscaled so cells still appear while the game is paused with timeScale = 0.
+                t = Mathf.MoveTowards(t, 1f, Time.unscaledDeltaTime / animInterval);
+                ApplyAnim(t);
+            }
+
+            animCoroutine = null;
+        }
+
+        private void ApplyAnim(float t) {
+            switch (animationType) {
+                case AnimationType.None:
+                    break;
+                case AnimationType.Fade:
+                    canvasGroup.alpha = Mathf.Lerp(fadeFrom, 1f, t);
+                    break;
+                case AnimationType.Scale:
+                    rectTransform.localScale = Vector3.one * Mathf.Lerp(scaleFrom, 1f, t);
+                    break;
+                case AnimationType.FadeAndScale:
+                    canvasGroup.alpha = Mathf.Lerp(fadeFrom, 1f, t);
+                    rectTransform.localScale = Vector3.one * Mathf.Lerp(scaleFrom, 1f, t);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
